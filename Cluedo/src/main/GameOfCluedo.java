@@ -13,10 +13,12 @@ import items.Card;
 import items.Character.CharacterToken;
 import items.Character;
 import items.Envelope;
+import items.Location;
 import items.Room;
 import items.Room.RoomToken;
 import items.Weapon;
 import items.Weapon.WeaponToken;
+import items.WeaponObject;
 import moves.Suggestion;
 
 public class GameOfCluedo {
@@ -35,9 +37,13 @@ public class GameOfCluedo {
 	List<Weapon> weapons;
 	List<Room> rooms;
 	
+	List<Location> locations;
+	List<WeaponObject> objects;
+	
 	public GameOfCluedo(){
 		board = new Board();
-		
+		locations = new ArrayList<Location>();
+		objects = new ArrayList<WeaponObject>();
 		
 		cards = new ArrayList<Card>();
 		characters = new ArrayList<Character>();
@@ -70,9 +76,26 @@ public class GameOfCluedo {
 		rooms.add(new Room(RoomToken.LOUNGE));
 		rooms.add(new Room(RoomToken.STUDY));
 		
+		for(Room rm : rooms){
+			locations.add(new Location(rm));
+		}
+		
+		for(Weapon wp : weapons){
+			objects.add(new WeaponObject(wp));
+		}
+		
+		Collections.shuffle(locations);
+		Collections.shuffle(objects);
+		
+		for(int i = 0; i < objects.size(); i++){
+			locations.get(i).setWeaponObject(objects.get(i));
+			objects.get(i).setRoom(locations.get(i).room);
+		}
+		
 		Collections.shuffle(characters);
 		Collections.shuffle(weapons);
 		Collections.shuffle(rooms);
+		
 		
 		Character c = (Character)getRandomCard(characters);
 		Weapon w = (Weapon) getRandomCard(weapons);
@@ -83,6 +106,8 @@ public class GameOfCluedo {
 		rooms.remove(r);
 		
 		solution = new Envelope(c,w,r);
+		
+		 
 		
 		cards.addAll(rooms);
 		cards.addAll(weapons);
@@ -131,10 +156,31 @@ public class GameOfCluedo {
 		}
 	}
 	
+	public WeaponObject getObject(Weapon weapon){
+		for(WeaponObject ob : objects){
+			if(ob.getWeapon().equals(weapon)){
+				return ob;
+			}
+		}
+		return null;
+	}
+	
+	public Location getLocation(Room r){
+		for(Location l : locations){
+			if(l.room.equals(r)){
+				return l;
+			}
+		}
+		return null;
+	}
+	
 	public void suggest(items.Character c, Weapon w, Room r, Player player){
 		Suggestion suggestion = new Suggestion(c, w , r);
-		w.setRoom(r);
-		c.setRoom(r);
+		
+		Location loc = getLocation(r);
+		WeaponObject ob = getObject(w);
+		loc.setWeaponObject(ob);
+		ob.setRoom(loc.room);
 		
 		
 		for(Player p : players){
@@ -240,6 +286,16 @@ public class GameOfCluedo {
 	public static void main(String[] args){
 		GameOfCluedo game = new GameOfCluedo();
 		
+		
+		
+		for(Location loc : game.locations){
+			
+			WeaponObject wp = loc.getWeaponObject();
+			String s;
+			if(wp == null) s = "";
+			else s = loc.getWeaponObject().getName();
+			System.out.println("Room: "+ loc.room.getName() +", Weapon: "+ s);
+		}
 		
 	}
 	

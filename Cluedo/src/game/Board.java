@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,7 @@ public class Board {
 		startingPositions.add(new Point(15,0));
 		startingPositions.add(new Point(24,6));
 		startingPositions.add(new Point(24,19));
+		
 		
 		
 		rooms.add(new Room(RoomToken.DINING_ROOM));

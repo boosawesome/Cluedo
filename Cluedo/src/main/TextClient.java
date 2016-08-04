@@ -9,6 +9,7 @@ import game.*;
 import items.*;
 import items.Character;
 import items.Character.CharacterToken;
+import main.GameOfCluedo.Direction;
 
 /**
  * This class contains the code for interfacing with the Cluedo game. It also
@@ -66,16 +67,22 @@ public class TextClient {
 		int counter = 0;
 		for (int i = 0; i < nplayers; i++) {
 			
-			String name = inputString("Player #" + i + " name?");
+			String name = inputString("Player #" + (i + 1) + " name?");
 			CharacterToken token = tokens.get(counter);
 			Point loc = game.getBoard().getStartingPositions().get(i);
 			Player play = new Player(name, token, loc);
-			System.out.println("Player "+i+", you will be taking the role of "+token.name());
+			System.out.println("Player "+(i + 1)+" is "+ name+", you will be taking the role of "+token.name());
 			players.add(play);
 			tokens.remove(token);
 			
 		}
 		return players;
+	}
+	
+	private static void movePlayer(Player player, GameOfCluedo game, Direction dir, int spaces){
+		game.movePlayer(spaces, dir, player);
+		
+		
 	}
 	
 
@@ -85,6 +92,22 @@ public class TextClient {
 	 * things for as long as they want.
 	 */
 	private static void playerOptions(Player player, GameOfCluedo board) {
+		
+	}
+	
+	private static GameOfCluedo.Direction getDirection(String input){
+		
+		if(input.equalsIgnoreCase("North") || input.equalsIgnoreCase("N")){
+			return Direction.NORTH;
+		}else if(input.equalsIgnoreCase("West") || input.equalsIgnoreCase("W")){
+			return Direction.WEST;
+		}else if(input.equalsIgnoreCase("South") || input.equalsIgnoreCase("S")){
+			return Direction.SOUTH;
+		}else if(input.equalsIgnoreCase("East") || input.equalsIgnoreCase("E")){
+			return Direction.EAST;
+		}else{
+			return null;
+		}
 		
 	}
 	
@@ -103,7 +126,55 @@ public class TextClient {
 		
 		ArrayList<Player> players = inputPlayers(nplayers, game);
 		
+		for(Player p : players){
+			System.out.println(p.toString());
+		}
 		
+		
+		int turn = 1;
+		Dice dice = new Dice();
+		while(1 == 1){
+			System.out.println("\n********************");
+			System.out.println("***** TURN " + turn + " *******");
+			System.out.println("********************\n");
+			
+			boolean firstTime = true;
+			for (Player player : players) {
+				if (!firstTime) {
+					System.out.println("\n********************\n");
+				}
+				firstTime = false;
+				int roll = dice.roll();
+				System.out.println(player.getName() + " rolls a " + roll + ".");
+				
+				while(roll != 0){
+					System.out.println("Moves left: "+roll);
+					String dir = inputString("Enter Direction: (N,W,S,E)");
+					Direction direction = getDirection(dir);
+					while(direction == null){
+						System.out.println("Error! That is not a valid direction!");
+						dir = inputString("Enter Direction: (N,W,S,E)");
+						direction = getDirection(dir);
+					}
+					
+					
+					int spaces = inputNumber("How many spaces would you like to move?\n");
+					
+					while(spaces < 1 || spaces > roll){
+						System.out.println("Error! You can only move within your Dice Roll Range");
+						spaces = inputNumber("How many spaces would you like to move?\n");
+					}
+					
+					movePlayer(player, game, direction, spaces);
+					roll-=spaces;
+					
+				
+				}
+			}
+			turn++;
+			
+			
+		}
 		
 	}
 	

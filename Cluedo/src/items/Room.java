@@ -1,6 +1,13 @@
 package items;
 
+import java.util.ArrayList;
+
+import game.Player;
+
+
 public class Room implements Card{
+	
+	
 	
 	public enum RoomToken{
 		HALL,

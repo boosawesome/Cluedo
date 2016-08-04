@@ -71,7 +71,7 @@ public class Player {
 	}
 	
 	public String toString(){
-		return "Player: "+name+"	Token: "+this.character +" 		Location On Board: ["+this.location.getX()+"]["+this.location.getY()+"] "; 
+		return "Player: "+name+"	Token: "+this.character +"	Location On Board: ["+(int)this.location.getX()+"]["+(int)this.location.getY()+"] "; 
 	}
 
 
