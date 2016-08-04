@@ -2,18 +2,16 @@ package game;
 
 import java.awt.Point;
 
+import game.Card.Weapon;
+
 public class Player {
+	
 	private boolean active;
 	private String name;
-	private Character card;
-	private Weapon weapon;
-	private Room room;
 	private Point location;
 
-	public Player(String name, Weapon weapon, Room room) {
+	public Player(String name) {
 		this.name = name;
-		this.weapon = weapon;
-		this.room = room;
 		this.active = true;
 	}
 
@@ -22,13 +20,11 @@ public class Player {
 	}
 
 	public void setRoom(Room newRoom) {
-		this.room = newRoom;
 		this.location = null;
 	}
 
 	public void setLocation(Point coord) {
 		this.location = coord;
-		this.room = null;
 	}
 
 	public boolean getActive() {
@@ -39,17 +35,8 @@ public class Player {
 		return name;
 	}
 
-	public Weapon getWeapon() {
-		return weapon;
-	}
 
-	public Room getRoom() {
-		if (room != null) {
-			return room;
-		} else {
-			return null;
-		}
-	}
+
 
 	public Point getLocation() {
 		if (location != null) {
@@ -59,8 +46,5 @@ public class Player {
 		}
 	}
 
-	public Character getChar(){
-		return card;
-	}
 
 }
