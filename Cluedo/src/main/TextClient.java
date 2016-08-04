@@ -63,15 +63,16 @@ public class TextClient {
 		
 		// now, input data
 		ArrayList<Player> players = new ArrayList<Player>();
-
-		for (int i = 0; i != nplayers; ++i) {
+		int counter = 0;
+		for (int i = 0; i < nplayers; i++) {
 			
 			String name = inputString("Player #" + i + " name?");
-			CharacterToken token = tokens.get(i);
+			CharacterToken token = tokens.get(counter);
 			Point loc = game.getBoard().getStartingPositions().get(i);
 			Player play = new Player(name, token, loc);
+			System.out.println("Player "+i+", you will be taking the role of "+token.name());
 			players.add(play);
-			tokens.remove(i);
+			tokens.remove(token);
 			
 		}
 		return players;
@@ -88,11 +89,19 @@ public class TextClient {
 	}
 	
 	
-	public void main(String[] args){
+	public static void main(String[] args){
 		GameOfCluedo game = new GameOfCluedo();
 		
 		System.out.println("*** WELCOME TO THE GAME OF CLUEDO ***");
+		int nplayers = inputNumber("Enter the Number of Players?");
 		
+		while(nplayers < 3 || nplayers > 6){
+			System.out.println("Error! Can only Play with 3 to 6 players!");
+			System.out.println("********************************************\n\n");
+			nplayers = inputNumber("Enter the Number of Players?");
+		}
+		
+		ArrayList<Player> players = inputPlayers(nplayers, game);
 		
 		
 		

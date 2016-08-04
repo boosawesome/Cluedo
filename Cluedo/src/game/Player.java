@@ -69,6 +69,10 @@ public class Player {
 	public Point getLocation() {
 		return this.location;
 	}
+	
+	public String toString(){
+		return "Player: "+name+"	Token: "+this.character +" 		Location On Board: ["+this.location.getX()+"]["+this.location.getY()+"] "; 
+	}
 
 
 }

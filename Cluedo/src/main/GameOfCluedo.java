@@ -30,7 +30,7 @@ public class GameOfCluedo {
 	ArrayList<Player> players;
 	
 	List<Card> cards;
-	int size = cards.size();
+
 	List<Character> characters;
 	List<Weapon> weapons;
 	List<Room> rooms;
