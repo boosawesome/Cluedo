@@ -13,13 +13,16 @@ import items.Room.RoomToken;
 public class Board {
 	private List<Room> rooms;
 	private Map<Point, String> entrances;
-	 String[][] map;
+	String[][] map;
+	List<Point> startingPositions;
 
 	public Board() {
 		rooms = new ArrayList<Room>();
 		map = new String[25][25];
 		entrances = new HashMap<Point, String>();
-
+		
+		
+		
 		String input = 
 							  "/ / / / / / / / / s / / / / / s / / / / / / / / / \n"
 							+ "/ / / / / / / x x x / / / / / x x x / / / / / / / \n"
@@ -70,6 +73,16 @@ public class Board {
 			
 		}
 		
+		startingPositions = new ArrayList<Point>();
+		
+		startingPositions.add(new Point(7, 24));
+		startingPositions.add(new Point(0, 17));
+		startingPositions.add(new Point(9,0));
+		startingPositions.add(new Point(15,0));
+		startingPositions.add(new Point(24,6));
+		startingPositions.add(new Point(24,19));
+		
+		
 		rooms.add(new Room(RoomToken.DINING_ROOM));
 		rooms.add(new Room(RoomToken.HALL));
 		rooms.add(new Room(RoomToken.BALLROOM));
@@ -116,10 +129,22 @@ public class Board {
 			return null;
 	}
 	
+	public String[][] getMap(){
+		return map;
+	}
+	
+	public List<Point> getStartingPositions(){
+		return startingPositions;
+	}
+	
 	public static void main(String[] args){
 		Board b = new Board();
 		
-		System.out.println(b.map[0][17]);
+		for(Point p : b.startingPositions){
+			
+			System.out.println(b.map[(int)p.getX()][(int)p.getY()]); //print out the positions of players and positions on board to see match
+			
+		}
 		
 	}
 }

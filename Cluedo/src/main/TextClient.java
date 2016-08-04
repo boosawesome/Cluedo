@@ -3,9 +3,11 @@ package main;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.awt.Point;
 
-import game.Player;
+import game.*;
 import items.*;
+import items.Character;
 import items.Character.CharacterToken;
 
 /**
@@ -66,7 +68,9 @@ public class TextClient {
 			
 			String name = inputString("Player #" + i + " name?");
 			CharacterToken token = tokens.get(i);
-			//players.add(new Player(name, game.getCharacter(token.name()),  );
+			Point loc = game.getBoard().getStartingPositions().get(i);
+			Player play = new Player(name, token, loc);
+			players.add(play);
 			tokens.remove(i);
 			
 		}
