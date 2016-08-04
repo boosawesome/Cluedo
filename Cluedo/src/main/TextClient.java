@@ -5,6 +5,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 import game.Player;
+import items.*;
+import items.Character.CharacterToken;
 
 /**
  * This class contains the code for interfacing with the Cluedo game. It also
@@ -47,6 +49,30 @@ public class TextClient {
 		}
 	}
 	
+	/**
+	 * Input player details from System.in
+	 */
+	private static ArrayList<Player> inputPlayers(int nplayers, GameOfCluedo game) {
+		// set up the tokens
+		ArrayList<CharacterToken> tokens = new ArrayList<CharacterToken>();
+		for(CharacterToken t : CharacterToken.values()) {
+			tokens.add(t);
+		}
+		
+		// now, input data
+		ArrayList<Player> players = new ArrayList<Player>();
+
+		for (int i = 0; i != nplayers; ++i) {
+			
+			String name = inputString("Player #" + i + " name?");
+			CharacterToken token = tokens.get(i);
+			//players.add(new Player(name, game.getCharacter(token.name()),  );
+			tokens.remove(i);
+			
+		}
+		return players;
+	}
+	
 
 	
 	/**
@@ -61,7 +87,7 @@ public class TextClient {
 	public void main(String[] args){
 		GameOfCluedo game = new GameOfCluedo();
 		
-		System.out.println("*** WELCOME TO CLUEDO ***");
+		System.out.println("*** WELCOME TO THE GAME OF CLUEDO ***");
 		
 		
 		

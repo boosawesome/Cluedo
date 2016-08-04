@@ -13,46 +13,61 @@ import items.Room.RoomToken;
 public class Board {
 	private List<Room> rooms;
 	private Map<Point, String> entrances;
-	private String[][] map;
+	 String[][] map;
 
 	public Board() {
 		rooms = new ArrayList<Room>();
-
+		map = new String[25][25];
 		entrances = new HashMap<Point, String>();
 
 		String input = 
-				  "/ / / / / / / / / s / / / / / s / / / / / / / / /"
-				+ "/ / / / / / / x x x / / / / / x x x / / / / / / /"
-				+ "/ / / / / / x x / / / / / / / / / x x / / / / / /"
-				+ "/ / / / / / x x / / / / / / / / / x x / / / / / /"
-				+ "/ / / / / / x x / / / / / / / / / x x / / / / / /"
-				+ "/ / / / / / x x / / / / / / / / / x x x / / / / /"
-				+ "/ / / / / / x x / / / / / / / / / x x x x x x x s"
-				+ "x x x x x x x x / / / / / / / / / x x x x x x x /"
-				+ "/ x x x x x x x x x x x x x x x x x x / / / / / /"
-				+ "/ / / / x x x x x x x x x x x x x x / / / / / / /"
-				+ "/ / / / / / / / x x / / / / / / x x x / / / / / /"
-				+ "/ / / / / / / / x x / / / / / / x x x / / / / / /"
-				+ "/ / / / / / / / x x / / / / / / x x x / / / / / /"
-				+ "/ / / / / / / / x x / / / / / / x x x x x x x x /"
-				+ "/ / / / / / / / x x / / / / / / x x x / / / / / x"
-				+ "/ / / / / / / / x x / / / / / / x x / / / / / / /"
-				+ "/ x x x x x x x x x / / / / / / x x / / / / / / /"
-				+ "s x x x x x x x x x x x x x x x x x / / / / / / /"
-				+ "/ x x x x x x x x / / / / / / / x x x / / / / / /"
-				+ "/ / / / / / / x x / / / / / / / x x x x x x x x s"
-				+ "/ / / / / / / x x / / / / / / / x x x x x x x x /"
-				+ "/ / / / / / / x x / / / / / / / x x / / / / / / /"
-				+ "/ / / / / / / x x / / / / / / / x x / / / / / / /"
-				+ "/ / / / / / / x x / / / / / / / x x / / / / / / /"
-				+ "/ / / / / / / s / / / / / / / / / x / / / / / / /";
+							  "/ / / / / / / / / s / / / / / s / / / / / / / / / \n"
+							+ "/ / / / / / / x x x / / / / / x x x / / / / / / / \n"
+							+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
+							+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
+							+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
+							+ "/ / / / / / x x / / / / / / / / / x x x / / / / / \n"
+							+ "/ / / / / / x x / / / / / / / / / x x x x x x x s \n"
+							+ "x x x x x x x x / / / / / / / / / x x x x x x x / \n"
+							+ "/ x x x x x x x x x x x x x x x x x x / / / / / / \n"
+							+ "/ / / / x x x x x x x x x x x x x x / / / / / / / \n"
+							+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
+							+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
+							+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
+							+ "/ / / / / / / / x x / / / / / / x x x x x x x x / \n"
+							+ "/ / / / / / / / x x / / / / / / x x x / / / / / x \n"
+							+ "/ / / / / / / / x x / / / / / / x x / / / / / / / \n"
+							+ "/ x x x x x x x x x / / / / / / x x / / / / / / / \n"
+							+ "s x x x x x x x x x x x x x x x x x / / / / / / / \n"
+							+ "/ x x x x x x x x / / / / / / / x x x / / / / / / \n"
+							+ "/ / / / / / / x x / / / / / / / x x x x x x x x s \n"
+							+ "/ / / / / / / x x / / / / / / / x x x x x x x x / \n"
+							+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
+							+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
+							+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
+							+ "/ / / / / / / s / / / / / / / / / x / / / / / / / \n";
 
 		Scanner scan = new Scanner(input);
 		
-		for(int y = 0; y < 25; y++){
-			for(int x = 0; x < 25; x++){
-				map[x][y] = scan.next();
+		int x = 0;
+		int y = 0;
+		
+		while(scan.hasNext()){
+			
+			if(x == 25){
+				x = 0;
+				y++;
+				if(y == 25) break;
 			}
+			if(scan.hasNext("\n")){
+				scan.nextLine();
+			}
+			
+			map[x][y] = scan.next();
+			x++;
+			
+			
+			
 		}
 		
 		rooms.add(new Room(RoomToken.DINING_ROOM));
@@ -99,5 +114,12 @@ public class Board {
 			return entrances.get(c);
 		} else
 			return null;
+	}
+	
+	public static void main(String[] args){
+		Board b = new Board();
+		
+		System.out.println(b.map[0][17]);
+		
 	}
 }

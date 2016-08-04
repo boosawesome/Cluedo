@@ -1,6 +1,6 @@
 package moves;
 
-import game.Envelope;
+import items.Envelope;
 import items.Room;
 import items.Weapon;
 

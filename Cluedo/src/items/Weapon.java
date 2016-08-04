@@ -30,6 +30,10 @@ public class Weapon implements Card{
 		this.room = room;
 	}
 	
+	public Room getRoom(){
+		return this.room;
+	}
+	
 	
 	@Override
 	public int hashCode() {

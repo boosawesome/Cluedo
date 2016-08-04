@@ -2,13 +2,17 @@ package main;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import game.*;
 import items.Card;
 import items.Character.CharacterToken;
 import items.Character;
+import items.Envelope;
 import items.Room;
 import items.Room.RoomToken;
 import items.Weapon;
@@ -25,14 +29,22 @@ public class GameOfCluedo {
 	private Envelope solution;
 	ArrayList<Player> players;
 	
-	Set<Card> cards = new HashSet<Card>();
-	ArrayList<Character> characters;
-	ArrayList<Weapon> weapons;
-	ArrayList<Room> rooms;
+	List<Card> cards;
+	int size = cards.size();
+	List<Character> characters;
+	List<Weapon> weapons;
+	List<Room> rooms;
 	
 	public GameOfCluedo(){
+		board = new Board();
 		
-		characters.add(new Character(CharacterToken.MISS_SCARLET));
+		
+		cards = new ArrayList<Card>();
+		characters = new ArrayList<Character>();
+		weapons = new ArrayList<Weapon>();
+		rooms = new ArrayList<Room>();
+		
+		characters.add(new Character(CharacterToken.MISS_SCARLETT));
 		characters.add(new Character(CharacterToken.COLONEL_MUSTARD));
 		characters.add(new Character(CharacterToken.MRS_WHITE));
 		characters.add(new Character(CharacterToken.THE_REVEREND_GREEN));
@@ -58,9 +70,28 @@ public class GameOfCluedo {
 		rooms.add(new Room(RoomToken.LOUNGE));
 		rooms.add(new Room(RoomToken.STUDY));
 		
+		Collections.shuffle(characters);
+		Collections.shuffle(weapons);
+		Collections.shuffle(rooms);
+		
+		Character c = (Character)getRandomCard(characters);
+		Weapon w = (Weapon) getRandomCard(weapons);
+		Room r = (Room) getRandomCard(rooms);
+		
+		characters.remove(c);
+		weapons.remove(w);
+		rooms.remove(r);
+		
+		solution = new Envelope(c,w,r);
+		
 		cards.addAll(rooms);
 		cards.addAll(weapons);
 		cards.addAll(characters);
+		
+		Collections.shuffle(cards);
+		
+		
+		
 		
 	}
 	
@@ -103,28 +134,34 @@ public class GameOfCluedo {
 	public void suggest(items.Character c, Weapon w, Room r, Player player){
 		Suggestion suggestion = new Suggestion(c, w , r);
 		w.setRoom(r);
+		c.setRoom(r);
 		
 		
 		for(Player p : players){
+			if(p.hasCharacter(c.getName())) p.setRoom(r);
+			
 			for(Card card : p.getHand()){
 				if(card instanceof Weapon){
 					Weapon weapon = (Weapon) card;
 					
-					if(weapon.equals(w)){
-						
+					if(weapon.equals(w) && weapon.getName().equals(w.getName())){
+						// do something
 						
 					}
 					
 					
-					
-					
 				}else if(card instanceof Room){
+					Room room = (Room) card;
+					if(r.equals(room) && r.getName().equals(room.getName())){
+						// do something
+					}
 					
 					
-					
-				}else{
-					
-					
+				}else if(card instanceof Character){
+					Character character = (Character) card;
+					if(character.equals(c) && character.getName().equals(c.getName())){
+						// do something
+					}
 					
 				}
 				
@@ -141,8 +178,48 @@ public class GameOfCluedo {
 		
 	}
 	
+	public Character getCharacter(String s){
+		for(Character c : characters){
+			if(c.getName().equals(s)){
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	public Weapon getWeapon(String s){
+		for(Weapon w : weapons){
+			if(w.getName().equals(s)){
+				return w;
+			}
+		}
+		return null;
+	}
+	
+	public Room getRoom(String s){
+		for(Room r : rooms){
+			if(r.getName().equals(s)){
+				return r;
+			}
+		}
+		return null;
+	}
 	
 	
+	public Card getRandomCard(List<? extends Card> list){
+		int size = list.size();
+		int item = new Random().nextInt(size); // In real life, the Random object should be rather more shared than this
+		int i = 0;
+		for(Card c : list)
+		{
+		    if (i == item){
+		    	list.remove(c);
+		    	return c;
+		    }
+		    i = i + 1;
+		}
+		return null;
+	}
 	
 	
 	/**
@@ -160,7 +237,11 @@ public class GameOfCluedo {
 	
 	
 	
-	
+	public static void main(String[] args){
+		GameOfCluedo game = new GameOfCluedo();
+		
+		
+	}
 	
 	
 	

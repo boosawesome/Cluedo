@@ -2,7 +2,7 @@ package items;
 
 public class Character implements Card{
 	public enum CharacterToken{ 
-		MISS_SCARLET,
+		MISS_SCARLETT,
 		COLONEL_MUSTARD,
 		MRS_WHITE,
 		THE_REVEREND_GREEN,
@@ -12,7 +12,7 @@ public class Character implements Card{
 	
 	
 	private CharacterToken token;
-	
+	Room room;
 
 
 	public Character(CharacterToken token){
@@ -21,6 +21,14 @@ public class Character implements Card{
 	
 	public String getName(){
 		return this.token.name();
+	}
+	
+	public void setRoom(Room room){
+		this.room = room;
+	}
+	
+	public Room getRoom(){
+		return this.room;
 	}
 	
 	@Override

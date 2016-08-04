@@ -58,6 +58,10 @@ public class Player {
 		return this.hand;
 	}
 	
+	public boolean hasCharacter(String c){
+		return c.equals(this.character.name());
+	}
+	
 	public Room getRoom(){
 		return this.room;
 	}
