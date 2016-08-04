@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import items.Room;
+import items.Room.RoomToken;
+
 public class Board {
 	private List<Room> rooms;
 	private Map<Point, String> entrances;
@@ -46,40 +49,49 @@ public class Board {
 
 		Scanner scan = new Scanner(input);
 		
-		for(int y = 0; y > 25; y++){
-			for(int x = 0; x > 25; x++){
+		for(int y = 0; y < 25; y++){
+			for(int x = 0; x < 25; x++){
 				map[x][y] = scan.next();
 			}
 		}
 		
-		rooms.add(new Room("Dining Room"));
-		rooms.add(new Room("Hall"));
-		rooms.add(new Room("Ballroom"));
-		rooms.add(new Room("Billiard Room"));
-		rooms.add(new Room("Library"));
-		rooms.add(new Room("Kitchen", "Study"));
-		rooms.add(new Room("Study", "Kitchen"));
-		rooms.add(new Room("Conservatory", "Lounge"));
-		rooms.add(new Room("Lounge", "Conservatory"));
+		rooms.add(new Room(RoomToken.DINING_ROOM));
+		rooms.add(new Room(RoomToken.HALL));
+		rooms.add(new Room(RoomToken.BALLROOM));
+		rooms.add(new Room(RoomToken.BILLARD_ROOM));
+		rooms.add(new Room(RoomToken.LIBRARY));
+		rooms.add(new Room(RoomToken.KITCHEN, RoomToken.STUDY));
+		rooms.add(new Room(RoomToken.STUDY, RoomToken.KITCHEN));
+		rooms.add(new Room(RoomToken.CONSERVATORY, RoomToken.LOUNGE));
+		rooms.add(new Room(RoomToken.LOUNGE, RoomToken.CONSERVATORY));
 
-		entrances.put(new Point(4, 7), "Kitchen");
-		entrances.put(new Point(6, 18), "Lounge");
-		entrances.put(new Point(19, 5), "Conservatory");
-		entrances.put(new Point(18, 20), "Study");
-		entrances.put(new Point(8, 12), "Dining Room");
-		entrances.put(new Point(6, 16), "Dining Room");
-		entrances.put(new Point(18, 8), "Billiard Room");
-		entrances.put(new Point(23, 12), "Billiard Room");
-		entrances.put(new Point(21, 12), "Library");
-		entrances.put(new Point(17, 15), "Library");
-		entrances.put(new Point(7, 5), "Ballroom");
-		entrances.put(new Point(9, 8), "Ballroom");
-		entrances.put(new Point(15, 8), "Ballroom");
-		entrances.put(new Point(17, 5), "Ballroom");
-		entrances.put(new Point(11, 17), "Hall");
-		entrances.put(new Point(12, 17), "Hall");
-		entrances.put(new Point(13, 17), "Hall");
-		entrances.put(new Point(16, 20), "Hall");
+		entrances.put(new Point(4, 7), "KITCHEN");
+		entrances.put(new Point(6, 18), "LOUNGE");
+		entrances.put(new Point(19, 5), "CONSERVATORY");
+		entrances.put(new Point(18, 20), "STUDY");
+		entrances.put(new Point(8, 12), "DINING_ROOM");
+		entrances.put(new Point(6, 16), "DINING_ROOM");
+		entrances.put(new Point(18, 8), "BILLIARD_ROOM");
+		entrances.put(new Point(23, 12), "BILLIARD_ROOM");
+		entrances.put(new Point(21, 12), "LIBRARY");
+		entrances.put(new Point(17, 15), "LIBRARY");
+		entrances.put(new Point(7, 5), "BALLROOM");
+		entrances.put(new Point(9, 8), "BALLROOM");
+		entrances.put(new Point(15, 8), "BALLROOM");
+		entrances.put(new Point(17, 5), "BALLROOM");
+		entrances.put(new Point(11, 17), "HALL");
+		entrances.put(new Point(12, 17), "HALL");
+		entrances.put(new Point(13, 17), "HALL");
+		entrances.put(new Point(16, 20), "HALL");
+	}
+	
+	public Room getRoom(String s){
+		for(int i = 0; i < rooms.size(); i++){
+			if(rooms.get(i).getName().equals(s)){
+				return rooms.get(i);
+			}
+		}
+		return null;
 	}
 
 	public String getRoom(Point c) {

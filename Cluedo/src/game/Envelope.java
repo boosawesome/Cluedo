@@ -1,6 +1,7 @@
 package game;
 
-import game.Card.Weapon;
+import items.Room;
+import items.Weapon;
 
 public class Envelope {
 
