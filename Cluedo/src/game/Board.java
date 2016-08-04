@@ -18,7 +18,7 @@ public class Board {
 		entrances = new HashMap<Point, String>();
 
 		String input = 
-				  " / / / / / / / / / s / / / / / s / / / / / / / / /"
+				  "/ / / / / / / / / s / / / / / s / / / / / / / / /"
 				+ "/ / / / / / / x x x / / / / / x x x / / / / / / /"
 				+ "/ / / / / / x x / / / / / / / / / x x / / / / / /"
 				+ "/ / / / / / x x / / / / / / / / / x x / / / / / /"
@@ -43,9 +43,14 @@ public class Board {
 				+ "/ / / / / / / x x / / / / / / / x x / / / / / / /"
 				+ "/ / / / / / / x x / / / / / / / x x / / / / / / /"
 				+ "/ / / / / / / s / / / / / / / / / x / / / / / / /";
+
 		Scanner scan = new Scanner(input);
 		
-		
+		for(int y = 0; y > 25; y++){
+			for(int x = 0; x > 25; x++){
+				map[x][y] = scan.next();
+			}
+		}
 		
 		rooms.add(new Room("Dining Room"));
 		rooms.add(new Room("Hall"));
