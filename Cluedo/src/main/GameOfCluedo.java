@@ -3,11 +3,9 @@ package main;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import game.*;
 import items.Card;
@@ -20,6 +18,7 @@ import items.Room.RoomToken;
 import items.Weapon;
 import items.Weapon.WeaponToken;
 import items.WeaponObject;
+import moves.Accusation;
 import moves.Suggestion;
 
 public class GameOfCluedo {
@@ -192,8 +191,6 @@ public class GameOfCluedo {
 						l.addPlayer(p);
 						return;
 					}
-
-
 				}
 			}
 		}
@@ -260,6 +257,7 @@ public class GameOfCluedo {
 			getLocation(room).removePlayer(p);
 			getLocation(opposite).addPlayer(p);
 			p.setRoom(opposite);
+			System.out.println(p.getName()+ " used the Stairwell to get from "+ room.getName() +" to "+ opposite.getName()+"\n\n\n\n\n");
 		}
 	}
 
@@ -368,8 +366,24 @@ public class GameOfCluedo {
 
 	}
 
-	public void accuse(Character c, Weapon w, Room r, Player player){
-
+	public boolean accuse(Accusation accusation, Player player){
+		Character c = accusation.getCharacter();
+		Weapon w = accusation.getWeapon();
+		Room r = accusation.getRoom();
+		
+		Character cSolution = this.solution.getCharacter();
+		Weapon wSolution = this.solution.getWeapon();
+		Room rSolution = this.solution.getRoom();
+		
+		System.out.println("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println(player.getName()+ " accused "+c.getName()+" of the crime in the "+ r.getName()+" room with a"+w.getName());
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
+		if(c.equals(cSolution) && w.equals(wSolution)&&r.equals(rSolution)){
+			return true;
+		}
+		return false;
+		
+		
 	}
 
 	public Character getCharacter(String s){
@@ -408,15 +422,6 @@ public class GameOfCluedo {
 	}
 
 
-	/**
-	 * Indicates an attempt to make an invalid move.
-	 *
-	 */
-	public static class InvalidMove extends Exception {
-		public InvalidMove(String msg) {
-			super(msg);
-		}
-	}
 
 
 

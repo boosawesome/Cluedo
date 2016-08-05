@@ -1,8 +1,8 @@
 package moves;
 
-import items.Envelope;
-import items.Room;
-import items.Weapon;
+import items.*;
+import items.Character;
+import main.GameOfCluedo;
 
 public class Accusation {
 

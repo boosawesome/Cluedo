@@ -11,7 +11,7 @@ import items.*;
 import items.Character;
 import items.Character.CharacterToken;
 import main.GameOfCluedo.Direction;
-import main.GameOfCluedo.InvalidMove;
+import moves.Accusation;
 import moves.Suggestion;
 
 /**
@@ -21,6 +21,8 @@ import moves.Suggestion;
  * @author Andre L. Westerlund
  */
 public class TextClient {
+
+	static boolean state = false;
 
 	/**
 	 * Get string from System.in
@@ -164,6 +166,8 @@ public class TextClient {
 	 * things for as long as they want.
 	 */
 	private static void playerOptions(Player player, ArrayList<Player> players,GameOfCluedo board) {
+
+		System.out.println("\n\n\n\n\n\n\n\n\n\n***********************************");
 		System.out.println("Options for " + player.getName() + ":");
 		System.out.println("Suggestion");
 		System.out.println("Accusation");
@@ -171,21 +175,20 @@ public class TextClient {
 		System.out.println("Display Cards in Hand");
 		System.out.println("Display Player Info");
 		System.out.println("Display Information about a Room");
-		System.out.println("Check Clues");
 		System.out.println("End Turn");
 
 		while (1 == 1) {
 			System.out.println("***********************************");
-			String cmd = inputString("[suggest/accuse/stairs/hand/clues/pinfo/rinfo/end]\n\n");
+			String cmd = inputString("[suggest/accuse/stairs/hand/pinfo/rinfo/end]\n\n");
 			if (cmd.equals("end")) {
 				return;
 			}else if(cmd.equals("suggest")){
-			
+
 				if(player.getRoom() == null && player.getLocation() != null){
 					System.out.println("ERROR! Cannot make a suggestion if player is not in a Room!");
 					continue;
 				}
-				
+
 				System.out.println("************ SUGGESTION  ************");
 				String charac = inputString("Who was the murderer? (e.g. MISS_SCARLETT)");
 				String weapon = inputString("With what weapon? (e.g. LEAD_PIPE, REVOLVER)");
@@ -196,7 +199,12 @@ public class TextClient {
 				Weapon w = board.getBoard().getWeapon(weapon);
 				Room r = board.getBoard().getRoom(room);
 				
+				if(c == null || w == null || r == null){
+					System.out.println("Invalid Argument! That Card does not exist!\n\n\n");
+					continue;
+				}
 				
+
 				if(!player.getRoom().equals(r) && !board.getLocation(r).hasPlayer(player)){
 					System.out.println("ERROR! Cannot make a suggestion of "+r.getName() + " When "+player.getName()+" is not in"+r.getName());
 					continue;
@@ -208,6 +216,53 @@ public class TextClient {
 				cmd.equals("end");
 
 
+			}else if(cmd.equals("accuse")){
+				System.out.println("Accusation will end everything once and for all!");
+				System.out.println("Game ends for you either Wrong or Right");
+				String answer = inputString("Are you sure you want to make an Accusation?[y/n]");
+
+				if(answer.equalsIgnoreCase("n")|| answer.equalsIgnoreCase("no")){
+
+				}else if(answer.equalsIgnoreCase("y")|| answer.equalsIgnoreCase("yes")){
+					System.out.println("\n\n************ ACCUSATION  ************\n");
+					String charac = inputString("Who was the murderer? (e.g. MISS_SCARLETT)");
+					String weapon = inputString("With what weapon? (e.g. LEAD_PIPE, REVOLVER)");
+					String room = inputString("In What room? (e.g. STUDY, DINING_ROOM)");
+
+					Character c = board.getBoard().getCharacter(charac);
+					Weapon w = board.getBoard().getWeapon(weapon);
+					Room r = board.getBoard().getRoom(room);
+
+					if(c == null || w == null || r == null){
+						System.out.println("Error! Invalid Argument, That card does not exist");
+					}
+
+					Accusation accuse = new Accusation(c,w,r);
+
+					boolean result = makeAccusation(accuse, player, board);
+
+					if(result){
+						state = true;
+						System.out.println("RESULT: ");
+						System.out.println("Murderer: "+board.getSolution().getCharacter().getName());
+						System.out.println("Weapon: "+board.getSolution().getWeapon().getName());
+						System.out.println("Scene: "+board.getSolution().getRoom().getName());
+
+						System.out.println("\n\n**************     "+player.getName()+" IS THE WINNER!!!   ***************");
+						System.out.println("GAME OVER!");
+
+					}else{
+						System.out.println("RESULT: ");
+						System.out.println("\n**************     "+player.getName()+" IS ELIMINATED!!!   ***************");
+						player.lose();
+						return;
+					}
+
+
+
+				}
+
+
 			}else if(cmd.equals("pinfo")){
 				displayInfo(player);
 			}else if(cmd.equals("rinfo")){
@@ -217,6 +272,7 @@ public class TextClient {
 			}else if(cmd.equals("hand")){
 				getHand(player);
 			}else if(cmd.equals("stairs")){
+				System.out.println("*********************************************\n\n");
 				if(player.getRoom() != null)
 					useStairWell(player.getRoom(),player, board);
 				else if(player.getRoom() == null){
@@ -232,11 +288,15 @@ public class TextClient {
 		}
 
 
-
 	}
 
 	private static void makeSuggestion(Suggestion suggest, Player player, ArrayList<Player> players, GameOfCluedo board) {
 		board.suggest(suggest, player, players);
+
+	}
+
+	private static boolean makeAccusation(Accusation accuse, Player player, GameOfCluedo board) {
+		return board.accuse(accuse,player);
 
 	}
 
@@ -320,6 +380,11 @@ public class TextClient {
 
 			boolean firstTime = true;
 			for (Player player : players) {
+
+				if(!player.getActive()){
+					continue;
+				}
+
 				if (!firstTime) {
 					System.out.println("\n********************\n");
 				}
@@ -379,7 +444,7 @@ public class TextClient {
 				}
 
 				playerOptions(player, players,game);
-
+				if(state == true) return; 
 			}
 			turn++;
 
