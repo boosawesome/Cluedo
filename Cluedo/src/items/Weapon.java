@@ -14,7 +14,7 @@ public class Weapon implements Card{
 		ROPE,
 		SPANNER
 	}
-	
+	public boolean isClue = false;
 	private WeaponToken token;
 	Room room;
 	

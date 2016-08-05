@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import items.Card;
 import items.Character.CharacterToken;
 import items.Room;
+import main.GameOfCluedo;
 
 public class Player {
 	
@@ -35,7 +36,11 @@ public class Player {
 
 	public void setLocation(Point coord) {
 		this.location = coord;
+		if(this.room != null){
+		GameOfCluedo.getLocation(this.room).removePlayer(this);
 		this.room = null;
+		}
+		
 	}
 
 	public boolean getActive() {

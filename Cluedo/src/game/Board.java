@@ -13,7 +13,7 @@ import items.Room.RoomToken;
 
 public class Board {
 	private List<Room> rooms;
-	private Map<Point, String> entrances;
+	public Map<Point, String> entrances;
 	String[][] map;
 	List<Point> startingPositions;
 

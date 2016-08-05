@@ -20,7 +20,7 @@ public class Room implements Card{
 		LIBRARY,
 		STUDY
 	}
-	
+	public boolean isClue = false;
 	private RoomToken token;
 	private RoomToken opposite;
 

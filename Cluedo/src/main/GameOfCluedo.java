@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class GameOfCluedo {
 	
 	private Board board;
 	private Envelope solution;
-	ArrayList<Player> players;
+	public boolean valid = false;
 	
 	List<Card> cards;
 
@@ -37,7 +38,7 @@ public class GameOfCluedo {
 	List<Weapon> weapons;
 	List<Room> rooms;
 	
-	List<Location> locations;
+	static List<Location> locations;
 	List<WeaponObject> objects;
 	
 	public GameOfCluedo(){
@@ -130,29 +131,91 @@ public class GameOfCluedo {
 		return this.solution;
 	}
 	
-	public void movePlayer(int diceRoll, Direction d, Player p){
+	public void movePlayer(int diceRoll, Direction d, Player p, ArrayList<Player> players){
 		int x = (int) p.getLocation().getX();
 		int y = (int) p.getLocation().getY();
 		
+		while(diceRoll != 0){
 		if(d.equals(Direction.NORTH)){
-			y -= diceRoll;
+			y --;
 		}else if(d.equals(Direction.SOUTH)){
-			y += diceRoll;
+			y ++;
 		}else if(d.equals(Direction.WEST)){
-			x -= diceRoll;
+			x --;
 		}else{
-			x += diceRoll;
+			x ++;
+		}
+		diceRoll--;
+		if(!checkValidMove(x,y, players)) return;
 		}
 		
+		if(checkValidMove(x,y,players)){
 		p.setLocation(new Point(x,y));
+		valid = true;
+		}
+		
 		
 		
 	}
 	
+	public boolean isAtDoor(Player p){
+		for(Map.Entry<Point, String> entry : board.entrances.entrySet()){
+			if(entry.getKey().getX() == p.getLocation().getX() && entry.getKey().getY() == p.getLocation().getY()){
+					return true;
+			}
+		}
+		
+		return false;
+	}
 	
+	public Point getDoor(Player p){
+		for(Map.Entry<Point, String> entry : board.entrances.entrySet()){
+			if(entry.getKey().getX() == p.getLocation().getX() && entry.getKey().getY() == p.getLocation().getY()){
+					return entry.getKey();
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	public void enterRoom(Player p){
+		for(Map.Entry<Point, String> entry : board.entrances.entrySet()){
+			if(entry.getKey().getX() == p.getLocation().getX() && entry.getKey().getY() == p.getLocation().getY()){
+				p.setRoom(board.getRoom(entry.getValue()));
+				getLocation(board.getRoom(entry.getValue())).addPlayer(p);
+				return;
+			}
+		}
+		
+		System.out.println("Cannot enter a room, Player is not at the door\n");
+		System.out.println("*************************************************");
+		
+	}
+	
+	
+	private boolean checkValidMove(int x, int y, ArrayList<Player> players) {
+		for(Player p : players){
+		if(board.getMap()[x][y].equals("x")&& p.getLocation().getX() == x && p.getLocation().getY() == y){
+			System.out.println("Error! Cannot move into that space, Occupied by another Player");
+			System.out.println("*************************************************\n\n");
+			return false;
+		}
+		}
+		if(board.getMap()[x][y].equals("x")) return true;
+		System.out.println("Cannot move into a wall\n\n");
+		System.out.println("*************************************************\n\n");
+
+		return false;
+		
+	}
+
+
 	public void useStairWell(Room room, Player p){
 		if(p.getRoom().equals(room) && room.hasStairWell()){
 			p.setRoom(board.getRoom(room.getOpposite()));
+			getLocation(room).removePlayer(p);
+			getLocation(board.getRoom(room.getOpposite())).addPlayer(p);;
 		}
 	}
 	
@@ -165,7 +228,7 @@ public class GameOfCluedo {
 		return null;
 	}
 	
-	public Location getLocation(Room r){
+	public static Location getLocation(Room r){
 		for(Location l : locations){
 			if(l.room.equals(r)){
 				return l;
@@ -174,7 +237,10 @@ public class GameOfCluedo {
 		return null;
 	}
 	
-	public void suggest(items.Character c, Weapon w, Room r, Player player){
+	public void suggest(items.Character c, Weapon w, Room r, Player player, ArrayList<Player> players)throws InvalidMove{
+		if(!player.getRoom().equals(r) && !getLocation(r).hasPlayer(player)){
+			
+		}
 		Suggestion suggestion = new Suggestion(c, w , r);
 		
 		Location loc = getLocation(r);
@@ -184,7 +250,10 @@ public class GameOfCluedo {
 		
 		
 		for(Player p : players){
-			if(p.hasCharacter(c.getName())) p.setRoom(r);
+			if(p.hasCharacter(c.getName())){ 
+				p.setRoom(r);
+				getLocation(r).addPlayer(p);
+			}
 			
 			for(Card card : p.getHand()){
 				if(card instanceof Weapon){

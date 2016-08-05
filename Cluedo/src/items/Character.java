@@ -13,6 +13,7 @@ public class Character implements Card{
 	
 	private CharacterToken token;
 	Room room;
+	public boolean isClue = false;
 
 
 	public Character(CharacterToken token){
