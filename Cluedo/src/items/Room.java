@@ -22,7 +22,7 @@ public class Room implements Card{
 	}
 	public boolean isClue = false;
 	private RoomToken token;
-	private RoomToken opposite;
+	private RoomToken opposite = null;
 
 	public Room(RoomToken token){
 		this.token = token;
@@ -31,6 +31,7 @@ public class Room implements Card{
 		this.token = token;
 		this.opposite = opposite;
 
+		
 	}
 
 	public String getName() {

@@ -38,7 +38,7 @@ public class GameOfCluedo {
 	List<Weapon> weapons;
 	List<Room> rooms;
 	
-	static List<Location> locations;
+	List<Location> locations;
 	List<WeaponObject> objects;
 	
 	public GameOfCluedo(){
@@ -69,13 +69,13 @@ public class GameOfCluedo {
 		
 		rooms.add(new Room(RoomToken.BALLROOM));
 		rooms.add(new Room(RoomToken.BILLARD_ROOM));
-		rooms.add(new Room(RoomToken.CONSERVATORY));
+		rooms.add(new Room(RoomToken.CONSERVATORY, RoomToken.LOUNGE));
 		rooms.add(new Room(RoomToken.DINING_ROOM));
 		rooms.add(new Room(RoomToken.HALL));
-		rooms.add(new Room(RoomToken.KITCHEN));
+		rooms.add(new Room(RoomToken.KITCHEN, RoomToken.STUDY));
 		rooms.add(new Room(RoomToken.LIBRARY));
-		rooms.add(new Room(RoomToken.LOUNGE));
-		rooms.add(new Room(RoomToken.STUDY));
+		rooms.add(new Room(RoomToken.LOUNGE, RoomToken.CONSERVATORY));
+		rooms.add(new Room(RoomToken.STUDY, RoomToken.KITCHEN));
 		
 		for(Room rm : rooms){
 			locations.add(new Location(rm));
@@ -182,9 +182,17 @@ public class GameOfCluedo {
 	public void enterRoom(Player p){
 		for(Map.Entry<Point, String> entry : board.entrances.entrySet()){
 			if(entry.getKey().getX() == p.getLocation().getX() && entry.getKey().getY() == p.getLocation().getY()){
-				p.setRoom(board.getRoom(entry.getValue()));
-				getLocation(board.getRoom(entry.getValue())).addPlayer(p);
+				Room r = board.getRoom(entry.getValue());
+				p.setRoom(r);
+				
+				for(Location l : locations){
+				if(l.room.equals(p.getRoom())){
+				l.addPlayer(p);
 				return;
+				}
+				
+				
+				}
 			}
 		}
 		
@@ -193,17 +201,48 @@ public class GameOfCluedo {
 		
 	}
 	
+	public void exitRoom(Room r, Player p){
+		if(p.getRoom() == null || r == null){
+			return;
+		}
+		
+		if(p.getRoom().equals(r)){
+			
+			for(Map.Entry<Point, String> entry : board.entrances.entrySet()){
+				
+				if(r.getName().equals(entry.getValue())){
+					for(Location l : locations){
+						if(l.room.equals(r)){
+							l.removePlayer(p);
+							p.setLocation(entry.getKey());
+							return;
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	
 	
 	private boolean checkValidMove(int x, int y, Player player, ArrayList<Player> players) {
+		if(x < 0 || x > 24 || y < 0 || y > 24){
+			System.out.println("Out of Bounds!");
+			return false;
+		}
+		
+		if(player.getLocation() == null)return false; 
+		
 		for(Player p : players){
 			if(p == player) continue;
+			if(p.getLocation() == null) continue;
 		if(board.getMap()[x][y].equals("x")&& p.getLocation().getX() == x && p.getLocation().getY() == y){
 			System.out.println("Error! Cannot move into that space, Occupied by another Player");
 			System.out.println("*************************************************\n\n");
 			return false;
 		}
 		}
-		if(board.getMap()[x][y].equals("x")) return true;
+		if(board.getMap()[x][y].equals("x") || board.getMap()[x][y].equals("s") ) return true;
 		System.out.println("Cannot move into a wall\n\n");
 		System.out.println("*************************************************\n\n");
 
@@ -214,9 +253,11 @@ public class GameOfCluedo {
 
 	public void useStairWell(Room room, Player p){
 		if(p.getRoom().equals(room) && room.hasStairWell()){
-			p.setRoom(board.getRoom(room.getOpposite()));
+			p.setRoom(null);
+			Room opposite = board.getRoom(room.getOpposite());
 			getLocation(room).removePlayer(p);
-			getLocation(board.getRoom(room.getOpposite())).addPlayer(p);;
+			getLocation(opposite).addPlayer(p);
+			p.setRoom(opposite);
 		}
 	}
 	
@@ -229,9 +270,9 @@ public class GameOfCluedo {
 		return null;
 	}
 	
-	public static Location getLocation(Room r){
+	public Location getLocation(Room r){
 		for(Location l : locations){
-			if(l.room.equals(r)){
+			if(l.room.equals(r) || l.room == r){
 				return l;
 			}
 		}
@@ -312,14 +353,6 @@ public class GameOfCluedo {
 		return null;
 	}
 	
-	public Room getRoom(String s){
-		for(Room r : rooms){
-			if(r.getName().equals(s)){
-				return r;
-			}
-		}
-		return null;
-	}
 	
 	
 	public Card getRandomCard(List<? extends Card> list){
@@ -353,7 +386,7 @@ public class GameOfCluedo {
 	
 	
 	
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		GameOfCluedo game = new GameOfCluedo();
 		
 		
@@ -367,7 +400,7 @@ public class GameOfCluedo {
 			System.out.println("Room: "+ loc.room.getName() +", Weapon: "+ s);
 		}
 		
-	}
+	}*/
 	
 	
 	

@@ -41,10 +41,12 @@ public class Location {
 		
 		public void addPlayer(Player p){
 			this.players.add(p);
+			
 		}
 		
 		public void removePlayer(Player p){
 			if(players.contains(p))players.remove(p);
+			p.setRoom(null);
 		}
 		
 		public ArrayList<Player> getPlayers(){

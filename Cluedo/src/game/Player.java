@@ -30,16 +30,13 @@ public class Player {
 	}
 
 	public void setRoom(Room newRoom) {
-		this.location = null;
 		this.room = newRoom;
+		this.location = null;
 	}
 
 	public void setLocation(Point coord) {
 		this.location = coord;
-		if(this.room != null){
-		GameOfCluedo.getLocation(this.room).removePlayer(this);
 		this.room = null;
-		}
 		
 	}
 

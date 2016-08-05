@@ -1,6 +1,6 @@
 package items;
 
-import items.Character.CharacterToken;
+
 
 public class Weapon implements Card{
 
