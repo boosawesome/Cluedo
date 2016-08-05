@@ -8,21 +8,43 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import items.Character;
 import items.Room;
+import items.Weapon;
+import items.Character.CharacterToken;
 import items.Room.RoomToken;
+import items.Weapon.WeaponToken;
 
 public class Board {
 	private List<Room> rooms;
 	public Map<Point, String> entrances;
 	String[][] map;
 	List<Point> startingPositions;
+	
+	
+
+	List<Character> characters;
+	List<Weapon> weapons;
 
 	public Board() {
 		rooms = new ArrayList<Room>();
 		map = new String[25][25];
 		entrances = new HashMap<Point, String>();
 		
-		
+		weapons = new ArrayList<Weapon>();
+		weapons.add(new Weapon(WeaponToken.CANDLESTICK));
+		weapons.add(new Weapon(WeaponToken.DAGGER));
+		weapons.add(new Weapon(WeaponToken.LEAD_PIPE));
+		weapons.add(new Weapon(WeaponToken.REVOLVER));
+		weapons.add(new Weapon(WeaponToken.ROPE));
+		weapons.add(new Weapon(WeaponToken.SPANNER));
+		characters = new ArrayList<Character>();
+		characters.add(new Character(CharacterToken.MISS_SCARLETT));
+		characters.add(new Character(CharacterToken.COLONEL_MUSTARD));
+		characters.add(new Character(CharacterToken.MRS_WHITE));
+		characters.add(new Character(CharacterToken.THE_REVEREND_GREEN));
+		characters.add(new Character(CharacterToken.MRS_PEACOCK));
+		characters.add(new Character(CharacterToken.PROFESSOR_PLUM));
 		
 		String input = 
 							  "/ / / / / / / / / s / / / / / s / / / / / / / / / \n"
@@ -148,5 +170,23 @@ public class Board {
 			
 		}
 		
+	}
+	
+	public Character getCharacter(String s){
+		for(Character c : characters){
+			if(c.getName().equals(s)){
+				return c;
+			}
+		}
+		return null;
+	}
+
+	public Weapon getWeapon(String s){
+		for(Weapon w : weapons){
+			if(w.getName().equals(s)){
+				return w;
+			}
+		}
+		return null;
 	}
 }

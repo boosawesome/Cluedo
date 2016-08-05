@@ -11,6 +11,8 @@ import items.*;
 import items.Character;
 import items.Character.CharacterToken;
 import main.GameOfCluedo.Direction;
+import main.GameOfCluedo.InvalidMove;
+import moves.Suggestion;
 
 /**
  * This class contains the code for interfacing with the Cluedo game. It also
@@ -161,7 +163,7 @@ public class TextClient {
 	 * Provide player with set of things they can do. Lets them continue doing
 	 * things for as long as they want.
 	 */
-	private static void playerOptions(Player player, GameOfCluedo board) {
+	private static void playerOptions(Player player, ArrayList<Player> players,GameOfCluedo board) {
 		System.out.println("Options for " + player.getName() + ":");
 		System.out.println("Suggestion");
 		System.out.println("Accusation");
@@ -177,6 +179,35 @@ public class TextClient {
 			String cmd = inputString("[suggest/accuse/stairs/hand/clues/pinfo/rinfo/end]\n\n");
 			if (cmd.equals("end")) {
 				return;
+			}else if(cmd.equals("suggest")){
+			
+				if(player.getRoom() == null && player.getLocation() != null){
+					System.out.println("ERROR! Cannot make a suggestion if player is not in a Room!");
+					continue;
+				}
+				
+				System.out.println("************ SUGGESTION  ************");
+				String charac = inputString("Who was the murderer? (e.g. MISS_SCARLETT)");
+				String weapon = inputString("With what weapon? (e.g. LEAD_PIPE, REVOLVER)");
+				String room = inputString("In What room? (e.g. STUDY, DINING_ROOM)");
+
+
+				Character c = board.getBoard().getCharacter(charac);
+				Weapon w = board.getBoard().getWeapon(weapon);
+				Room r = board.getBoard().getRoom(room);
+				
+				
+				if(!player.getRoom().equals(r) && !board.getLocation(r).hasPlayer(player)){
+					System.out.println("ERROR! Cannot make a suggestion of "+r.getName() + " When "+player.getName()+" is not in"+r.getName());
+					continue;
+				}
+
+				Suggestion suggest = new Suggestion(c,w,r);
+
+				makeSuggestion(suggest, player, players, board);
+				cmd.equals("end");
+
+
 			}else if(cmd.equals("pinfo")){
 				displayInfo(player);
 			}else if(cmd.equals("rinfo")){
@@ -201,6 +232,11 @@ public class TextClient {
 		}
 
 
+
+	}
+
+	private static void makeSuggestion(Suggestion suggest, Player player, ArrayList<Player> players, GameOfCluedo board) {
+		board.suggest(suggest, player, players);
 
 	}
 
@@ -342,7 +378,7 @@ public class TextClient {
 
 				}
 
-				playerOptions(player, game);
+				playerOptions(player, players,game);
 
 			}
 			turn++;
