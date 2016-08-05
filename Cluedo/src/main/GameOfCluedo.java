@@ -146,10 +146,10 @@ public class GameOfCluedo {
 			x ++;
 		}
 		diceRoll--;
-		if(!checkValidMove(x,y, players)) return;
+		if(!checkValidMove(x,y, p, players)) return;
 		}
 		
-		if(checkValidMove(x,y,players)){
+		if(checkValidMove(x,y,p, players)){
 		p.setLocation(new Point(x,y));
 		valid = true;
 		}
@@ -194,8 +194,9 @@ public class GameOfCluedo {
 	}
 	
 	
-	private boolean checkValidMove(int x, int y, ArrayList<Player> players) {
+	private boolean checkValidMove(int x, int y, Player player, ArrayList<Player> players) {
 		for(Player p : players){
+			if(p == player) continue;
 		if(board.getMap()[x][y].equals("x")&& p.getLocation().getX() == x && p.getLocation().getY() == y){
 			System.out.println("Error! Cannot move into that space, Occupied by another Player");
 			System.out.println("*************************************************\n\n");

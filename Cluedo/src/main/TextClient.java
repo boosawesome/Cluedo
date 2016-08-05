@@ -88,10 +88,11 @@ public class TextClient {
 	
 	private static void displayInfo(Player p){
 		System.out.println("**********  Player Info  **********");
+		System.out.println("Token Name: "+ p.getCharacter().name());
 		if(p.getRoom() == null){
 			System.out.println("Location of Player : ("+p.getLocation().getX()+", "+ p.getLocation().getY()+")");
 		}else{
-			System.out.println("Location of Player : "+ p.getRoom());
+			System.out.println("Location of Player : "+ p.getRoom().getName());
 		}
 	}
 	
@@ -103,22 +104,37 @@ public class TextClient {
 	 */
 	private static void playerOptions(Player player, GameOfCluedo board) {
 		System.out.println("Options for " + player.getName() + ":");
-		System.out.println("Token Name: "+ player.getCharacter().name());
-		System.out.println("Display Info");
 		System.out.println("Suggestion");
 		System.out.println("Accusation");
+		System.out.println("Take Stairwell");
+		System.out.println("Display Cards in Hand");
+		System.out.println("Display Info");
+		System.out.println("Check Clues");
 		System.out.println("End Turn");
 		
 		while (1 == 1) {
-			String cmd = inputString("[info/end]");
+			System.out.println("\n\n\n\n\n\n");
+			System.out.println("***********************************");
+			String cmd = inputString("[suggest/accuse/stairs/hand/clues/info/end]\n\n");
 			if (cmd.equals("end")) {
 				return;
 			}else if(cmd.equals("info")){
+				displayInfo(player);
+			}else if(cmd.equals("clues")){
 				
+			}else if(cmd.equals("hand")){
+				getHand(player);
+			}else if(cmd.equals("stairs")){
+				if(player.getRoom() != null)
+				useStairWell(player.getRoom(),player, board);
+				else if(!player.getRoom().hasStairWell()){
+					System.out.println("The "+player.getRoom()+" does not have a Stairwell");
+				}else{
+					System.out.println("Player "+player.getName()+" is not in a Room");
+				}
 			}
 			 else {
-				System.out
-						.println("Invalid command.  Enter 'end' to finish turn.");
+				System.out.println("Invalid command.  Enter 'end' to finish turn.");
 			}
 		}
 		
@@ -139,6 +155,30 @@ public class TextClient {
 		}else{
 			return null;
 		}
+		
+	}
+	
+	private static void getHand(Player p){
+		System.out.println(p.getName()+"'s Cards in Hand");
+		System.out.println("******************************\n");
+		for(Card c : p.getHand()){
+			System.out.println(c.getName());
+		}
+		System.out.println("******************************\n\n");
+	}
+	
+	private static void useStairWell(Room r, Player p, GameOfCluedo game){
+		Location loc = GameOfCluedo.getLocation(r);
+		if(loc.hasPlayer(p)&&r.hasStairWell()){
+			Room opposite = game.getRoom(r.getOpposite());
+			Location loc2 = GameOfCluedo.getLocation(opposite);
+			loc.removePlayer(p);
+			loc2.addPlayer(p);
+			p.setRoom(opposite);
+		}
+		
+		
+		
 		
 	}
 	
@@ -163,11 +203,16 @@ public class TextClient {
 		
 		Collections.shuffle(game.cards);
 		
+		
+		int count = 0;
+		
 		for(int i = 0; i < game.cards.size(); i++){
 			
 			Card c = game.cards.get(i);
-			players.get(i%nplayers).addCard(c);
-			game.cards.remove(i);
+			players.get(count++).addCard(c);
+			if(count == nplayers){
+				count = 0;
+			}
 		}
 		
 		
@@ -229,6 +274,9 @@ public class TextClient {
 					}
 				
 				}
+
+				playerOptions(player, game);
+				
 			}
 			turn++;
 			
