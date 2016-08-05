@@ -9,7 +9,7 @@ public class Accusation {
 	Character character;
 	Weapon weapon;
 	Room room;
-	
+
 	public Accusation(Character character, Weapon weapon, Room room){
 		this.character = character;
 		this.weapon = weapon;
@@ -27,9 +27,9 @@ public class Accusation {
 	public Room getRoom() {
 		return room;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }

@@ -17,24 +17,24 @@ public class Weapon implements Card{
 	public boolean isClue = false;
 	private WeaponToken token;
 	Room room;
-	
+
 	public Weapon(WeaponToken token){
 		this.token = token;
 	}
-	
+
 	public String getName(){
 		return this.token.name();
 	}
-	
+
 	public void setRoom(Room room){
 		this.room = room;
 	}
-	
+
 	public Room getRoom(){
 		return this.room;
 	}
-	
-	
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,11 +56,11 @@ public class Weapon implements Card{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 }

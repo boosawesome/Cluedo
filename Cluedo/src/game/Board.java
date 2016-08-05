@@ -20,8 +20,8 @@ public class Board {
 	public Map<Point, String> entrances;
 	String[][] map;
 	List<Point> startingPositions;
-	
-	
+
+
 
 	List<Character> characters;
 	List<Weapon> weapons;
@@ -30,7 +30,7 @@ public class Board {
 		rooms = new ArrayList<Room>();
 		map = new String[25][25];
 		entrances = new HashMap<Point, String>();
-		
+
 		weapons = new ArrayList<Weapon>();
 		weapons.add(new Weapon(WeaponToken.CANDLESTICK));
 		weapons.add(new Weapon(WeaponToken.DAGGER));
@@ -45,41 +45,41 @@ public class Board {
 		characters.add(new Character(CharacterToken.THE_REVEREND_GREEN));
 		characters.add(new Character(CharacterToken.MRS_PEACOCK));
 		characters.add(new Character(CharacterToken.PROFESSOR_PLUM));
-		
+
 		String input = 
-							  "/ / / / / / / / / s / / / / / s / / / / / / / / / \n"
-							+ "/ / / / / / / x x x / / / / / x x x / / / / / / / \n"
-							+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
-							+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
-							+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
-							+ "/ / / / / / x x / / / / / / / / / x x x / / / / / \n"
-							+ "/ / / / / / x x / / / / / / / / / x x x x x x x s \n"
-							+ "x x x x x x x x / / / / / / / / / x x x x x x x / \n"
-							+ "/ x x x x x x x x x x x x x x x x x x / / / / / / \n"
-							+ "/ / / / x x x x x x x x x x x x x x / / / / / / / \n"
-							+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
-							+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
-							+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
-							+ "/ / / / / / / / x x / / / / / / x x x x x x x x / \n"
-							+ "/ / / / / / / / x x / / / / / / x x x / / / / / x \n"
-							+ "/ / / / / / / / x x / / / / / / x x / / / / / / / \n"
-							+ "/ x x x x x x x x x / / / / / / x x / / / / / / / \n"
-							+ "s x x x x x x x x x x x x x x x x x / / / / / / / \n"
-							+ "/ x x x x x x x x / / / / / / / x x x / / / / / / \n"
-							+ "/ / / / / / / x x / / / / / / / x x x x x x x x s \n"
-							+ "/ / / / / / / x x / / / / / / / x x x x x x x x / \n"
-							+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
-							+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
-							+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
-							+ "/ / / / / / / s / / / / / / / / / x / / / / / / / \n";
+						  "/ / / / / / / / / s / / / / / s / / / / / / / / / \n"
+						+ "/ / / / / / / x x x / / / / / x x x / / / / / / / \n"
+						+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
+						+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
+						+ "/ / / / / / x x / / / / / / / / / x x / / / / / / \n"
+						+ "/ / / / / / x x / / / / / / / / / x x x / / / / / \n"
+						+ "/ / / / / / x x / / / / / / / / / x x x x x x x s \n"
+						+ "x x x x x x x x / / / / / / / / / x x x x x x x / \n"
+						+ "/ x x x x x x x x x x x x x x x x x x / / / / / / \n"
+						+ "/ / / / x x x x x x x x x x x x x x / / / / / / / \n"
+						+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
+						+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
+						+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
+						+ "/ / / / / / / / x x / / / / / / x x x x x x x x / \n"
+						+ "/ / / / / / / / x x / / / / / / x x x / / / / / x \n"
+						+ "/ / / / / / / / x x / / / / / / x x / / / / / / / \n"
+						+ "/ x x x x x x x x x / / / / / / x x / / / / / / / \n"
+						+ "s x x x x x x x x x x x x x x x x x / / / / / / / \n"
+						+ "/ x x x x x x x x / / / / / / / x x x / / / / / / \n"
+						+ "/ / / / / / / x x / / / / / / / x x x x x x x x s \n"
+						+ "/ / / / / / / x x / / / / / / / x x x x x x x x / \n"
+						+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
+						+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
+						+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
+						+ "/ / / / / / / s / / / / / / / / / x / / / / / / / \n";
 
 		Scanner scan = new Scanner(input);
-		
+
 		int x = 0;
 		int y = 0;
-		
+
 		while(scan.hasNext()){
-			
+
 			if(x == 25){
 				x = 0;
 				y++;
@@ -88,25 +88,25 @@ public class Board {
 			if(scan.hasNext("\n")){
 				scan.nextLine();
 			}
-			
+
 			map[x][y] = scan.next();
 			x++;
-			
-			
-			
+
+
+
 		}
-		
+
 		startingPositions = new ArrayList<Point>();
-		
+
 		startingPositions.add(new Point(7, 24));
 		startingPositions.add(new Point(0, 17));
 		startingPositions.add(new Point(9,0));
 		startingPositions.add(new Point(15,0));
 		startingPositions.add(new Point(24,6));
 		startingPositions.add(new Point(24,19));
-		
-		
-		
+
+
+
 		rooms.add(new Room(RoomToken.DINING_ROOM));
 		rooms.add(new Room(RoomToken.HALL));
 		rooms.add(new Room(RoomToken.BALLROOM));
@@ -136,7 +136,7 @@ public class Board {
 		entrances.put(new Point(13, 17), "HALL");
 		entrances.put(new Point(16, 20), "HALL");
 	}
-	
+
 	public Room getRoom(String s){
 		for(int i = 0; i < rooms.size(); i++){
 			if(rooms.get(i).getName().equals(s)){
@@ -152,26 +152,26 @@ public class Board {
 		} else
 			return null;
 	}
-	
+
 	public String[][] getMap(){
 		return map;
 	}
-	
+
 	public List<Point> getStartingPositions(){
 		return startingPositions;
 	}
-	
+
 	public static void main(String[] args){
 		Board b = new Board();
-		
+
 		for(Point p : b.startingPositions){
-			
+
 			System.out.println(b.map[(int)p.getX()][(int)p.getY()]); //print out the positions of players and positions on board to see match
-			
+
 		}
-		
+
 	}
-	
+
 	public Character getCharacter(String s){
 		for(Character c : characters){
 			if(c.getName().equals(s)){
@@ -189,4 +189,28 @@ public class Board {
 		}
 		return null;
 	}
+	
+	public String toString(){
+		
+		int x = 0;
+		int y = 0;
+		
+		String board = "";
+		
+		while(y < 25){
+			while(x < 25){
+			board+= map[x][y];
+			
+			x++;
+			}
+			board+=" \n";
+			x = 0;
+			y++;
+		}
+		
+		return board;
+		
+	}
+	
+
 }

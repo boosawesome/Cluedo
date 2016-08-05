@@ -39,7 +39,7 @@ public class GameOfCluedo {
 
 	List<Location> locations;
 	List<WeaponObject> objects;
-	
+
 	Player refuter = null;
 
 	public GameOfCluedo(){
@@ -133,9 +133,15 @@ public class GameOfCluedo {
 	}
 
 	public void movePlayer(int diceRoll, Direction d, Player p, ArrayList<Player> players){
+		
+		
 		int x = (int) p.getLocation().getX();
 		int y = (int) p.getLocation().getY();
-
+		
+		int prevX = 0 + x;
+		int prevY = 0 + y;
+		
+		
 		while(diceRoll != 0){
 			if(d.equals(Direction.NORTH)){
 				y --;
@@ -152,6 +158,9 @@ public class GameOfCluedo {
 
 		if(checkValidMove(x,y,p, players)){
 			p.setLocation(new Point(x,y));
+			board.getMap()[x][y] = "s";
+			board.getMap()[prevX][prevY] = "x";
+			System.out.println(board.toString());
 			valid = true;
 		}
 
@@ -188,6 +197,7 @@ public class GameOfCluedo {
 
 				for(Location l : locations){
 					if(l.room.equals(p.getRoom())){
+						board.getMap()[(int) entry.getKey().getX()][(int)entry.getKey().getY()] = "x";
 						l.addPlayer(p);
 						return;
 					}
@@ -213,6 +223,7 @@ public class GameOfCluedo {
 					for(Location l : locations){
 						if(l.room.equals(r)){
 							l.removePlayer(p);
+							board.getMap()[entry.getKey().x][entry.getKey().y] = "s";
 							p.setLocation(entry.getKey());
 							return;
 						}
@@ -287,7 +298,7 @@ public class GameOfCluedo {
 				p.setRoom(r);
 				getLocation(r).addPlayer(p);
 			}
-			
+
 			Collections.shuffle(p.getHand());
 
 			for(Card card : p.getHand()){
@@ -343,11 +354,11 @@ public class GameOfCluedo {
 		WeaponObject ob = getObject(w);
 		loc.setWeaponObject(ob);
 		ob.setRoom(loc.room);
-		
+
 		Card result = refute(c,w,r, player, players);
-		
+
 		if(refuter != null && result != null){
-			
+
 			System.out.println(refuter.getName()+" has refuted your Suggestion");
 			System.out.println("************************************\n\n");
 			System.out.println(refuter.getName()+" has the "+result.getName()+" card");
@@ -360,7 +371,7 @@ public class GameOfCluedo {
 			}
 			System.out.println("************************************\n\n");
 		}
-		
+
 
 
 
@@ -370,11 +381,11 @@ public class GameOfCluedo {
 		Character c = accusation.getCharacter();
 		Weapon w = accusation.getWeapon();
 		Room r = accusation.getRoom();
-		
+
 		Character cSolution = this.solution.getCharacter();
 		Weapon wSolution = this.solution.getWeapon();
 		Room rSolution = this.solution.getRoom();
-		
+
 		System.out.println("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println(player.getName()+ " accused "+c.getName()+" of the crime in the "+ r.getName()+" room with a"+w.getName());
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
@@ -382,8 +393,8 @@ public class GameOfCluedo {
 			return true;
 		}
 		return false;
-		
-		
+
+
 	}
 
 	public Character getCharacter(String s){

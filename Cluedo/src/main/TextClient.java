@@ -17,6 +17,7 @@ import moves.Suggestion;
 /**
  * This class contains the code for interfacing with the Cluedo game. It also
  * contains much of the game logic for controlling how the user can interact.
+ * Inspiration from Monopoly Assignment 6 SWEN221 - Dave J.P
  *
  * @author Andre L. Westerlund
  */
@@ -167,11 +168,12 @@ public class TextClient {
 	 */
 	private static void playerOptions(Player player, ArrayList<Player> players,GameOfCluedo board) {
 
-		System.out.println("\n\n\n\n\n\n\n\n\n\n***********************************");
+		System.out.println("\n\n***********************************");
 		System.out.println("Options for " + player.getName() + ":");
 		System.out.println("Suggestion");
 		System.out.println("Accusation");
 		System.out.println("Take Stairwell");
+		System.out.println("Display Board");
 		System.out.println("Display Cards in Hand");
 		System.out.println("Display Player Info");
 		System.out.println("Display Information about a Room");
@@ -179,7 +181,7 @@ public class TextClient {
 
 		while (1 == 1) {
 			System.out.println("***********************************");
-			String cmd = inputString("[suggest/accuse/stairs/hand/pinfo/rinfo/end]\n\n");
+			String cmd = inputString("[suggest/accuse/stairs/board/hand/pinfo/rinfo/end]\n\n");
 			if (cmd.equals("end")) {
 				return;
 			}else if(cmd.equals("suggest")){
@@ -198,12 +200,12 @@ public class TextClient {
 				Character c = board.getBoard().getCharacter(charac);
 				Weapon w = board.getBoard().getWeapon(weapon);
 				Room r = board.getBoard().getRoom(room);
-				
+
 				if(c == null || w == null || r == null){
 					System.out.println("Invalid Argument! That Card does not exist!\n\n\n");
 					continue;
 				}
-				
+
 
 				if(!player.getRoom().equals(r) && !board.getLocation(r).hasPlayer(player)){
 					System.out.println("ERROR! Cannot make a suggestion of "+r.getName() + " When "+player.getName()+" is not in"+r.getName());
@@ -265,6 +267,8 @@ public class TextClient {
 
 			}else if(cmd.equals("pinfo")){
 				displayInfo(player);
+			}else if(cmd.equals("board")){
+				System.out.println(board.getBoard().toString());
 			}else if(cmd.equals("rinfo")){
 				displayRoomInfo(board);
 			}else if(cmd.equals("clues")){
@@ -317,8 +321,8 @@ public class TextClient {
 	}
 
 	private static void getHand(Player p){
-		System.out.println(p.getName()+"'s Cards in Hand");
-		System.out.println("******************************\n");
+		System.out.println("\n\n"+p.getName()+"'s Cards in Hand");
+		System.out.println("******************************");
 		for(Card c : p.getHand()){
 			System.out.println(c.getName());
 		}

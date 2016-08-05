@@ -9,14 +9,14 @@ import items.Room;
 import main.GameOfCluedo;
 
 public class Player {
-	
+
 	private boolean active;
 	private String name;
 	private Point location;
 	private CharacterToken character;
 	private ArrayList<Card> hand;
 	private Room room = null;
-	
+
 	public Player(String name, CharacterToken character, Point location) {
 		this.name = name;
 		this.active = true;
@@ -37,7 +37,7 @@ public class Player {
 	public void setLocation(Point coord) {
 		this.location = coord;
 		this.room = null;
-		
+
 	}
 
 	public boolean getActive() {
@@ -47,23 +47,23 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-	
+
 	public CharacterToken getCharacter(){
 		return character;
 	}
-	
+
 	public void addCard(Card c){
 		hand.add(c);
 	}
-	
+
 	public ArrayList<Card> getHand(){
 		return this.hand;
 	}
-	
+
 	public boolean hasCharacter(String c){
 		return c.equals(this.character.name());
 	}
-	
+
 	public Room getRoom(){
 		return this.room;
 	}
@@ -71,7 +71,7 @@ public class Player {
 	public Point getLocation() {
 		return this.location;
 	}
-	
+
 	public String toString(){
 		return "Player: "+name+"	Token: "+this.character +"	Location On Board: ["+(int)this.location.getX()+"]["+(int)this.location.getY()+"] "; 
 	}
