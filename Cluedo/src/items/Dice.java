@@ -2,7 +2,13 @@ package items;
 
 import java.util.Random;
 
+/***
+ * Dice class responsible for contributing to Player movement in Cluedo
+ * @author Andre L Westerlund
+ *
+ */
 public class Dice {
+	
 	Random rand = new Random();
 
 	/**

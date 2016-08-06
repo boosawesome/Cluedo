@@ -15,22 +15,35 @@ import items.Character.CharacterToken;
 import items.Room.RoomToken;
 import items.Weapon.WeaponToken;
 
+/**
+ * Represents the Cluedo Board, which is made up of 9 Rooms/Locations.
+ * The board simply provides access methods to determine the location 
+ * at a given Point on the board. Positions are taken in a Clock wise fashion
+ * 
+ * @author Andre L Westerlund
+ *
+ */
 public class Board {
-	private List<Room> rooms;
-	public Map<Point, String> entrances;
-	String[][] map;
-	List<Point> startingPositions;
-
-
-
-	List<Character> characters;
+	
+	String[][] map; //Points in the Board 25x25
+	List<Point> startingPositions; 
+	private List<Room> rooms; 
+	public Map<Point, String> entrances; //conatins the Points that allow access into Rooms 
+	
+	//although already in GameOfCluedo, used here due to size of cards in Game reduced by 3 because of the Envelope Class
+	List<Character> characters; 
 	List<Weapon> weapons;
-
+	
+	
+	/**
+	 * Constructs a Board Object
+	 */
 	public Board() {
 		rooms = new ArrayList<Room>();
 		map = new String[25][25];
 		entrances = new HashMap<Point, String>();
-
+		
+		//redundant (see GameOfCluedo) but needed because of Structuring of classes and data architectures 
 		weapons = new ArrayList<Weapon>();
 		weapons.add(new Weapon(WeaponToken.CANDLESTICK));
 		weapons.add(new Weapon(WeaponToken.DAGGER));
@@ -45,7 +58,9 @@ public class Board {
 		characters.add(new Character(CharacterToken.THE_REVEREND_GREEN));
 		characters.add(new Character(CharacterToken.MRS_PEACOCK));
 		characters.add(new Character(CharacterToken.PROFESSOR_PLUM));
-
+		
+		// s meaning a Player, x meaning a Point a Player can move to, / meaning cannot move to
+		
 		String input = 
 						  "/ / / / / / / / / s / / / / / s / / / / / / / / / \n"
 						+ "/ / / / / / / x x x / / / / / x x x / / / / / / / \n"
@@ -61,7 +76,7 @@ public class Board {
 						+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
 						+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
 						+ "/ / / / / / / / x x / / / / / / x x x x x x x x / \n"
-						+ "/ / / / / / / / x x / / / / / / x x x / / / / / x \n"
+						+ "/ / / / / / / / x x / / / / / / x x x / / / / / / \n"
 						+ "/ / / / / / / / x x / / / / / / x x / / / / / / / \n"
 						+ "/ x x x x x x x x x / / / / / / x x / / / / / / / \n"
 						+ "s x x x x x x x x x x x x x x x x x / / / / / / / \n"
@@ -73,6 +88,10 @@ public class Board {
 						+ "/ / / / / / / x x / / / / / / / x x / / / / / / / \n"
 						+ "/ / / / / / / s / / / / / / / / / x / / / / / / / \n";
 
+		
+		/*
+		 * Reads in Input via scanner into the Map, this gives the structure of the Board
+		 */
 		Scanner scan = new Scanner(input);
 
 		int x = 0;
@@ -136,7 +155,12 @@ public class Board {
 		entrances.put(new Point(13, 17), "HALL");
 		entrances.put(new Point(16, 20), "HALL");
 	}
-
+	
+	/**
+	 * Gets a Room from a given String, null if not found
+	 * @param s
+	 * @return
+	 */
 	public Room getRoom(String s){
 		for(int i = 0; i < rooms.size(); i++){
 			if(rooms.get(i).getName().equals(s)){
@@ -145,22 +169,92 @@ public class Board {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Gets a Room via Point/Location, null if not found
+	 * @param c
+	 * @return
+	 */
 	public String getRoom(Point c) {
 		if (entrances.containsKey(c)) {
 			return entrances.get(c);
 		} else
 			return null;
 	}
-
+	
+	/**
+	 * Gets the map Outlying the structure of the Board
+	 * @return
+	 */
 	public String[][] getMap(){
 		return map;
 	}
-
+	
+	/**
+	 * Gets Starting Points of Players
+	 * @return
+	 */
 	public List<Point> getStartingPositions(){
 		return startingPositions;
 	}
+	
+	/**
+	 * Gets a Character from a given String
+	 * @param s
+	 * @return
+	 */
+	public Character getCharacter(String s){
+		for(Character c : characters){
+			if(c.getName().equals(s)){
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Gets a Weapon from a given String
+	 * @param s
+	 * @return
+	 */
+	public Weapon getWeapon(String s){
+		for(Weapon w : weapons){
+			if(w.getName().equals(s)){
+				return w;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Prints out the Board (25x25)
+	 */
+	public String toString(){
 
+		int x = 0;
+		int y = 0;
+
+		String board = "";
+
+		while(y < 25){
+			while(x < 25){
+				board+= map[x][y]; 
+
+				x++;
+			}
+			board+=" \n";
+			x = 0;
+			y++;
+		}
+
+		return board;
+
+	}
+	
+	/**
+	 * Print out Positions of the Players
+	 * @param args
+	 */
 	public static void main(String[] args){
 		Board b = new Board();
 
@@ -172,45 +266,5 @@ public class Board {
 
 	}
 
-	public Character getCharacter(String s){
-		for(Character c : characters){
-			if(c.getName().equals(s)){
-				return c;
-			}
-		}
-		return null;
-	}
-
-	public Weapon getWeapon(String s){
-		for(Weapon w : weapons){
-			if(w.getName().equals(s)){
-				return w;
-			}
-		}
-		return null;
-	}
-	
-	public String toString(){
-		
-		int x = 0;
-		int y = 0;
-		
-		String board = "";
-		
-		while(y < 25){
-			while(x < 25){
-			board+= map[x][y];
-			
-			x++;
-			}
-			board+=" \n";
-			x = 0;
-			y++;
-		}
-		
-		return board;
-		
-	}
-	
 
 }

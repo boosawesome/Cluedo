@@ -1,6 +1,18 @@
 package items;
-
+/***
+ * Represents the Character Card in the Cluedo Game. This class implements Card Interface.
+ * 
+ * @author Andre L Westerlund
+ *
+ */
 public class Character implements Card{
+	
+	/**
+	 * Characters of Cluedo  
+	 * 
+	 * @author Andre L Westerlund
+	 *
+	 */
 	public enum CharacterToken{ 
 		MISS_SCARLETT,
 		COLONEL_MUSTARD,
@@ -10,28 +22,46 @@ public class Character implements Card{
 		PROFESSOR_PLUM
 	}
 	
-	
-	private CharacterToken token;
 	Room room;
-	public boolean isClue = false;
+	private CharacterToken token; 
 
-
+	/**
+	 * Constructs a Character object from a given Character Token
+	 * 
+	 * @param token
+	 */
 	public Character(CharacterToken token){
 		this.token = token;
 	}
 	
+	/**
+	 * Gets the Name of the Character Token
+	 */
 	public String getName(){
 		return this.token.name();
 	}
 	
+	/**
+	 * Sets the room of this Character Card
+	 * 
+	 * @param room
+	 */
 	public void setRoom(Room room){
 		this.room = room;
 	}
 	
+	/**
+	 * Gets the Room from which this Character object is within
+	 * 
+	 * @return
+	 */
 	public Room getRoom(){
 		return this.room;
 	}
 	
+	/**
+	 * Generated HashCode method
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -39,7 +69,10 @@ public class Character implements Card{
 		result = prime * result + ((token == null) ? 0 : token.hashCode());
 		return result;
 	}
-
+	
+	/**
+	 * Generated Equals method
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
