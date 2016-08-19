@@ -25,6 +25,7 @@ public class TextClient {
 
 	static boolean state = false; // determines if a Game is still active
 
+
 	/**
 	 * Get string from System.in
 	 */
@@ -506,6 +507,11 @@ public class TextClient {
 					}
 				}
 				playerOptions(player, players,game);
+				
+				
+				
+				
+				
 				if(state == true) {
 					game.state = true;
 					System.exit(0); // Game is finished properly
