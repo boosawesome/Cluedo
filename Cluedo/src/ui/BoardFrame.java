@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,6 +19,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+
+import main.GameOfCluedo;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Component;
@@ -26,11 +30,16 @@ import javax.swing.Box;
 public class BoardFrame extends JFrame {
 
 	private JPanel bottomPanel;
+	private Canvas boardCanvas;
+	private GameOfCluedo game;
 	
 	
 	
 	public BoardFrame(){
 		super("Cluedo Board Game");
+		
+		game = new GameOfCluedo();
+		
 		this.setSize(500, 500);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -52,28 +61,17 @@ public class BoardFrame extends JFrame {
 		
 		getContentPane().add(menuBar, BorderLayout.PAGE_START);
 		
+		bottomPanel = new BottomPanel();
 	    
-		bottomPanel = new JPanel();
-		bottomPanel.setBackground(Color.LIGHT_GRAY);
-		bottomPanel.setPreferredSize(new Dimension(0, 150));
-		JButton rollDice = new JButton();
-		rollDice.setBackground(Color.LIGHT_GRAY);
-		ImageIcon dice = new ImageIcon("src/images/dice.png");
-		Image d = dice.getImage();
-		Image newD = d.getScaledInstance(50, 50, 20);
-		ImageIcon d2 = new ImageIcon(newD);
 		
-		
-		rollDice.setIcon(d2);
-		rollDice.setMargin(new Insets(0,0,0,0));
-				
-		JButton endTurn = new JButton("End Turn");
-		bottomPanel.add(rollDice);
+		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		
 		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
 		bottomPanel.add(rigidArea);
-		bottomPanel.add(endTurn);
-		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+		
+		boardCanvas = new BoardCanvas();
+		
+		add(boardCanvas, BorderLayout.CENTER);
 		
 		this.setVisible(true);
 	} 
