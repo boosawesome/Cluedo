@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -17,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
@@ -26,24 +29,24 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 
-public class BoardFrame extends JFrame {
+public class BoardFrame extends JFrame{
 
 	private JPanel bottomPanel;
 	private Canvas boardCanvas;
-	private GameOfCluedo game;
 	
 	
 	
 	public BoardFrame(){
 		super("Cluedo Board Game");
 		
-		game = new GameOfCluedo();
 		
 		this.setSize(500, 500);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		//setup Menu and menu items
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenu game = new JMenu("Game");
@@ -66,8 +69,7 @@ public class BoardFrame extends JFrame {
 		
 		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		
-		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
-		bottomPanel.add(rigidArea);
+		
 		
 		boardCanvas = new BoardCanvas();
 		
@@ -76,12 +78,17 @@ public class BoardFrame extends JFrame {
 		this.setVisible(true);
 	} 
 	
+	
+	public void setupRadioButtons(){
+		
+	
+	}
+	
 	public static void main(String[] args){
 		new BoardFrame();
 	}
-	
-	
-	
+
+
 	
 	
 	
