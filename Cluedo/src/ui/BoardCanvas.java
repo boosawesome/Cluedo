@@ -48,12 +48,12 @@ public class BoardCanvas extends Canvas{
 			}
 		}
 		//Ball Room
-		for(int x = 9; x <= 16; x++){
+		for(int x = 8; x <= 15; x++){
 			for(int y = 2; y <= 7; y++){
 				g.fillRect(x*10, y*10, squareSize, squareSize);
 			}
 		}
-		for(int x = 11; x <= 14; x++){
+		for(int x = 10; x <= 13; x++){
 			g.fillRect(x*10, 10, squareSize, squareSize);
 		}
 		//Conservatory
@@ -67,7 +67,7 @@ public class BoardCanvas extends Canvas{
 		}
 		//Dining Room
 		for(int x = 0; x <= 8; x++){
-			for(int y = 11; y <= 16; y++){
+			for(int y = 10; y <= 16; y++){
 				g.fillRect(x*10, y*10, squareSize, squareSize);
 			}
 		}
@@ -93,8 +93,8 @@ public class BoardCanvas extends Canvas{
 			}
 		}
 		//Hall
-		for(int x = 18; x <= 24; x++){
-			for(int y = 9; y <= 14; y++){
+		for(int x = 9; x <= 14; x++){
+			for(int y = 18; y <= 24; y++){
 				g.fillRect(x*10, y*10, squareSize, squareSize);
 			}
 		}
@@ -108,7 +108,7 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(0, 70, squareSize, squareSize);
 		g.fillRect(60, 10, squareSize, squareSize);
 		g.fillRect(180, 10, squareSize, squareSize);
-		g.fillRect(230, 60, squareSize, squareSize);
+		g.fillRect(230, 50, squareSize, squareSize);
 		g.fillRect(0,  90, squareSize, squareSize);
 		g.fillRect(230, 80, squareSize, squareSize);
 		g.fillRect(0, 160, squareSize, squareSize);
@@ -127,11 +127,17 @@ public class BoardCanvas extends Canvas{
 		g.setColor(Color.ORANGE);
 		g.fillRect(50, 10, squareSize, squareSize);
 		g.fillRect(0,  190, squareSize, squareSize);
-		g.fillRect(220, 60, squareSize, squareSize);
-		g.fillRect(210, 230, squareSize, squareSize);
+		g.fillRect(220, 50, squareSize, squareSize);
+		g.fillRect(230, 210, squareSize, squareSize);
 		
 		g.setColor(Color.RED);
-		
+		g.fillRect(90, 0, squareSize, squareSize);
+		g.fillRect(140, 0, squareSize, squareSize);
+		g.fillRect(2300, 600, squareSize, squareSize);
+		g.fillRect(0, 170, squareSize, squareSize);
+		g.fillRect(2300, 190, squareSize, squareSize);
+		g.fillRect(70, 240, squareSize, squareSize);
+		g.fillRect(230, 190, squareSize, squareSize);
 	}
 	
 }
