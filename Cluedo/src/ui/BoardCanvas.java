@@ -66,7 +66,7 @@ public class BoardCanvas extends Canvas{
 				g.fillRect(x*10, 50, squareSize, squareSize);			
 		}
 		//Dining Room
-		for(int x = 0; x <= 8; x++){
+		for(int x = 0; x <= 7; x++){
 			for(int y = 10; y <= 16; y++){
 				g.fillRect(x*10, y*10, squareSize, squareSize);
 			}
@@ -104,6 +104,14 @@ public class BoardCanvas extends Canvas{
 				g.fillRect(x*10, y*10, squareSize, squareSize);
 			}
 		}
+		
+		g.setColor(Color.BLUE);
+		for(int x = 10; x <= 14; x++){
+			for(int y = 10; y <=16; y++){
+				g.fillRect(x*10, y*10, squareSize, squareSize);
+			}
+		}
+		
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 70, squareSize, squareSize);
 		g.fillRect(60, 10, squareSize, squareSize);
