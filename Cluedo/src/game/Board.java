@@ -26,6 +26,7 @@ import items.Weapon.WeaponToken;
 public class Board {
 	
 	String[][] map; //Points in the Board 25x25
+	public Map<String, Point> tokenToPos;
 	List<Point> startingPositions; 
 	private List<Room> rooms; 
 	public Map<Point, String> entrances; //conatins the Points that allow access into Rooms 
@@ -42,6 +43,8 @@ public class Board {
 		rooms = new ArrayList<Room>();
 		map = new String[25][25];
 		entrances = new HashMap<Point, String>();
+		
+		
 		
 		//redundant (see GameOfCluedo) but needed because of Structuring of classes and data architectures 
 		weapons = new ArrayList<Weapon>();
@@ -117,13 +120,20 @@ public class Board {
 
 		startingPositions = new ArrayList<Point>();
 
-		startingPositions.add(new Point(7, 24));
-		startingPositions.add(new Point(0, 17));
-		startingPositions.add(new Point(9,0));
-		startingPositions.add(new Point(15,0));
-		startingPositions.add(new Point(24,6));
-		startingPositions.add(new Point(24,19));
-
+		startingPositions.add(new Point(7, 24)); //scarlett
+		startingPositions.add(new Point(0, 17)); //mustard
+		startingPositions.add(new Point(9,0));  //white
+		startingPositions.add(new Point(15,0)); //green
+		startingPositions.add(new Point(24,6)); //peacock
+		startingPositions.add(new Point(24,19)); //plum
+		
+		tokenToPos = new HashMap<String, Point>();
+		tokenToPos.put("Miss Scarlett", new Point(7,24));
+		tokenToPos.put("Colonel Mustard", new Point(0,17));
+		tokenToPos.put("Mrs White", new Point(9,0));
+		tokenToPos.put("The Reverend Green", new Point(15,0));
+		tokenToPos.put("Mrs Peacock", new Point(24,6));
+		tokenToPos.put("Professor Plum", new Point(24,19));
 
 
 		rooms.add(new Room(RoomToken.DINING_ROOM));
@@ -136,7 +146,7 @@ public class Board {
 		rooms.add(new Room(RoomToken.CONSERVATORY, RoomToken.LOUNGE));
 		rooms.add(new Room(RoomToken.LOUNGE, RoomToken.CONSERVATORY));
 
-		entrances.put(new Point(4, 7), "KITCHEN");
+		entrances.put(new Point(4, 7), "KITCHEN"); 
 		entrances.put(new Point(6, 18), "LOUNGE");
 		entrances.put(new Point(19, 5), "CONSERVATORY");
 		entrances.put(new Point(18, 20), "STUDY");

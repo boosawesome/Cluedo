@@ -1,4 +1,7 @@
 package items;
+
+import java.awt.Image;
+
 /***
  * Represents the Character Card in the Cluedo Game. This class implements Card Interface.
  * 
@@ -12,7 +15,7 @@ public class Character implements Card{
 	 * 
 	 * @author Andre L Westerlund
 	 *
-	 */
+	 */ 
 	public enum CharacterToken{ 
 		MISS_SCARLETT,
 		COLONEL_MUSTARD,
@@ -23,7 +26,8 @@ public class Character implements Card{
 	}
 	
 	Room room;
-	private CharacterToken token; 
+	private CharacterToken token;
+	String picture;
 
 	/**
 	 * Constructs a Character object from a given Character Token
@@ -32,6 +36,32 @@ public class Character implements Card{
 	 */
 	public Character(CharacterToken token){
 		this.token = token;
+		setupChar(token);
+	}
+	
+	public void setupChar(CharacterToken token){
+		switch(token){
+		case MISS_SCARLETT:
+			picture = "Miss Scarlett";
+			break;
+		case COLONEL_MUSTARD:
+			picture = "Colonel Mustard";
+			break;
+		case MRS_WHITE:
+			picture = "Mrs White";
+			break;
+		case THE_REVEREND_GREEN:
+			picture = "The Reverend Green";
+			break;
+		case MRS_PEACOCK:
+			picture = "Mrs Peacock";
+			break;
+		case PROFESSOR_PLUM:
+			picture = "Professor Plum";
+			break;
+		}
+		
+		
 	}
 	
 	/**

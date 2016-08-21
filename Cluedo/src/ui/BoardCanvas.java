@@ -131,7 +131,7 @@ public class BoardCanvas extends Canvas{
 		for(int x = 0; x <= 23; x++){
 			g.fillRect(x*1*35, 0, squareSize, squareSize);
 		}
-		
+		 
 		g.setColor(Color.ORANGE);
 		g.fillRect(5*35, 1*35, squareSize, squareSize);
 		g.fillRect(0,  19*35, squareSize, squareSize);

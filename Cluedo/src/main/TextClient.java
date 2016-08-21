@@ -82,7 +82,7 @@ public class TextClient {
 			String name = inputString("Player #" + (i + 1) + " name?");
 			CharacterToken token = tokens.get(counter);
 			Point loc = game.getBoard().getStartingPositions().get(i);
-			Player play = new Player(name, token, loc);
+			Player play = new Player(name, null, loc);
 			System.out.println("Player "+(i + 1)+" is "+ name+", you will be taking the role of "+token.name());
 			players.add(play);
 			tokens.remove(token);
@@ -109,7 +109,7 @@ public class TextClient {
 	 */
 	private static void displayInfo(Player p){
 		System.out.println("**********  Player Info  **********");
-		System.out.println("Token Name: "+ p.getCharacter().name());
+		System.out.println("Token Name: "+ p.getToken().token);
 		if(p.getRoom() == null && p.getLocation() != null){
 			System.out.println("Location of Player : ("+p.getLocation().getX()+", "+ p.getLocation().getY()+")");
 		}else{
@@ -142,7 +142,7 @@ public class TextClient {
 		}else{
 			System.out.println("Players inside "+r.getName());
 			for(Player p : loc.getPlayers()){
-				System.out.println(p.getName()+" : "+p.getCharacter().name());
+				System.out.println(p.getName()+" : "+p.getToken().token);
 			}
 		}
 		System.out.println("****************************************\n\n");
@@ -163,7 +163,7 @@ public class TextClient {
 
 		System.out.println("Rooms in Cluedo: \n");
 		for(Room roomName : rooms){
-			System.out.println(roomName.getName());
+			System.out.println(roomName.getName()); 
 		}
 		String rm = inputString("\n\nEnter a room name: ");
 		rm = rm.toUpperCase();

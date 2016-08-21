@@ -19,10 +19,14 @@ import javax.swing.border.Border;
 
 public class BottomPanel extends JPanel {
 
+	public BoardFrame parent;
+	public CardPanel hand;
+	
 	private JButton rollDice;
 	
 	
-	public BottomPanel(){
+	public BottomPanel(BoardFrame parent){
+		this.parent = parent;
 		setupPanel();
 		
 		
@@ -47,9 +51,19 @@ public class BottomPanel extends JPanel {
 		buttons.setLayout(layout);
 		buttons.setVisible(true);
 		layout.setAlignment(FlowLayout.LEFT);
-		layout.setVgap(35);
-		layout.setHgap(10);
-		add(buttons, BorderLayout.WEST);
+		layout.setVgap(5);
+		layout.setHgap(7); 
+		add(buttons, BorderLayout.CENTER);
+		
+		hand = new CardPanel();
+		hand.parent = this;
+		add(hand,BorderLayout.EAST);
+		hand.setPreferredSize(new Dimension(215, 0));
+		hand.setBackground(Color.RED);
+		
+		
+		
+		
 	}
 	
 	private void setupDice(){
@@ -64,6 +78,8 @@ public class BottomPanel extends JPanel {
 		rollDice.setIcon(d2);
 		rollDice.setMargin(new Insets(0,0,0,0));
 	}
+	
+	
 	
 	
 }

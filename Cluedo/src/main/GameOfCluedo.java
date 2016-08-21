@@ -57,6 +57,8 @@ public class GameOfCluedo {
 	List<WeaponObject> objects;
 
 	public Player refuter = null; //current Player who refuted a Suggestion
+	public Player currentPlayer = null;
+	public ArrayList<Player> players;
 	
 	/**
 	 * Constructs a GameOfCluedo Object
@@ -393,10 +395,10 @@ public class GameOfCluedo {
 
 		for(Player p : players){
 			if(p == player)continue;
-			if(p.hasCharacter(c.getName())){ 
+			if(p.hasToken(c.getName())){ 
 				p.setRoom(r);
 				getLocation(r).addPlayer(p);
-			}
+			} 
 
 			Collections.shuffle(p.getHand());
 			
@@ -499,9 +501,6 @@ public class GameOfCluedo {
 		Weapon wSolution = this.solution.getWeapon();
 		Room rSolution = this.solution.getRoom();
 
-		System.out.println("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println(player.getName()+ " accused "+c.getName()+" of the crime in the "+ r.getName()+" room with a "+w.getName());
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
 		if(c.equals(cSolution) && w.equals(wSolution)&&r.equals(rSolution)){
 			state = true;
 			return true;

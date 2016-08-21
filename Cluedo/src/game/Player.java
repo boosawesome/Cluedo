@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import items.Card;
 import items.Character.CharacterToken;
+import items.Piece;
 import items.Room;
 
 /***
@@ -19,9 +20,10 @@ public class Player {
 	private boolean active; //determines if a player is eliminated or not
 	private String name;
 	private Point location;
-	private CharacterToken character; // piece token of Player
+	private Piece character; // piece token of Player
+	public int num;
 	private ArrayList<Card> hand; 
-	private Room room = null;
+	private Room room = null; 
 	
 	/**
 	 * Constructs a Player object with a given name, character token and location
@@ -30,7 +32,7 @@ public class Player {
 	 * @param character
 	 * @param location
 	 */
-	public Player(String name, CharacterToken character, Point location) {
+	public Player(String name, Piece character, Point location) {
 		this.name = name;
 		this.active = true;
 		this.character = character;
@@ -44,6 +46,7 @@ public class Player {
 	public void lose() {
 		this.active = false;
 	}
+
 	
 	/**
 	 * Sets the Player in a Room, and removes the Player from a location/Point on the Board
@@ -89,7 +92,7 @@ public class Player {
 	 * 
 	 * @return
 	 */
-	public CharacterToken getCharacter(){
+	public Piece getToken(){
 		return character;
 	}
 	
@@ -117,8 +120,8 @@ public class Player {
 	 * @param c
 	 * @return
 	 */
-	public boolean hasCharacter(String c){
-		return c.equals(this.character.name());
+	public boolean hasToken(String c){
+		return c.equals(this.character.token);
 	}
 	
 	/**
@@ -144,7 +147,7 @@ public class Player {
 	 * 
 	 */
 	public String toString(){
-		return "Player: "+name+"	Token: "+this.character +"	Location On Board: ["+(int)this.location.getX()+"]["+(int)this.location.getY()+"] "; 
+		return "Player: "+name+"	Token: "+this.character.token +"	Location On Board: ["+(int)this.location.getX()+"]["+(int)this.location.getY()+"] "; 
 	}
 
 
