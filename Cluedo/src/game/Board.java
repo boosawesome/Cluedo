@@ -29,7 +29,7 @@ public class Board {
 	public Map<String, Point> tokenToPos;
 	List<Point> startingPositions; 
 	private List<Room> rooms; 
-	public Map<Point, String> entrances; //conatins the Points that allow access into Rooms 
+	public Map<Point, String> entrances; //contains the Points that allow access into Rooms 
 	
 	//although already in GameOfCluedo, used here due to size of cards in Game reduced by 3 because of the Envelope Class
 	List<Character> characters; 

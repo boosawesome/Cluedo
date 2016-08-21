@@ -1,4 +1,4 @@
-package tests;
+/*package tests;
 
 import static org.junit.Assert.*;
 
@@ -21,9 +21,9 @@ import moves.Suggestion;
 
 public class CluedoTests {
 
-	/**
+	*//**
 	 * Testing Player movement,if the Game and Board are updated
-	 */
+	 *//*
 	@Test
 	public void test_01(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -71,9 +71,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Test Invalid movement, Player cannot move onto a Space occupied by another player
-	 */
+	 *//*
 	@Test
 	public void test_02(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -93,9 +93,9 @@ public class CluedoTests {
 	}
 
 
-	/**
+	*//**
 	 * Test Invalid movement, Player cannot move into a Wall
-	 */
+	 *//*
 	@Test
 	public void test_03(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -108,9 +108,9 @@ public class CluedoTests {
 		assertFalse(game.valid);
 	}
 
-	/**
+	*//**
 	 * Testing Player if entered a room correctly
-	 */
+	 *//*
 	@Test
 	public void test_04(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -156,9 +156,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Test invalid entering of a room
-	 */
+	 *//*
 	@Test
 	public void test_05(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -203,9 +203,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Test valid use of Stairwell
-	 */
+	 *//*
 	@Test
 	public void test_06(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -258,9 +258,9 @@ public class CluedoTests {
 	}
 
 
-	/**
+	*//**
 	 * Test invalid use of Stairwell, cannot use it because Player is not in room
-	 */
+	 *//*
 	@Test
 	public void test_07(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -307,9 +307,9 @@ public class CluedoTests {
 	}
 
 
-	/**
+	*//**
 	 * Test invalid use of Stairwell, cannot use it if Room does not have Stairwell
-	 */
+	 *//*
 	@Test
 	public void test_08(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -359,9 +359,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Test valid exiting of a Room
-	 */
+	 *//*
 	@Test
 	public void test_09(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -410,9 +410,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Test invalid exiting of a Room
-	 */
+	 *//*
 	@Test
 	public void test_10(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -458,9 +458,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Test entering an invalid room
-	 */
+	 *//*
 	@Test
 	public void test_11(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -506,9 +506,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Testing valid Suggestion
-	 */
+	 *//*
 	@Test
 	public void test_12(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -571,9 +571,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Testing valid Suggestion02, suggestion has not been refuted
-	 */
+	 *//*
 	@Test
 	public void test_13(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -636,9 +636,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Testing invalid Suggestion 01, cannot make suggestion if Player is not in a room
-	 */
+	 *//*
 	@Test
 	public void test_14(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -700,10 +700,10 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Testing invalid Suggestion 02, cannot make a suggestion of a room if player is not in that room
 	 * e.g. Player is in Hall, making suggestion of Conservatory
-	 */
+	 *//*
 	@Test
 	public void test_15(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -764,9 +764,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Testing valid Accusation, however the Player may or may not be Correct
-	 */
+	 *//*
 	@Test
 	public void test_16(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -827,9 +827,9 @@ public class CluedoTests {
 	}
 
 
-	/**
+	*//**
 	 * Testing wrong Accusation, Player is eliminated 
-	 */
+	 *//*
 	@Test
 	public void test_17(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -873,9 +873,9 @@ public class CluedoTests {
 	}
 
 
-	/**
+	*//**
 	 * Testing Accusation, Player Wins! 
-	 */
+	 *//*
 	@Test
 	public void test_18(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -921,9 +921,9 @@ public class CluedoTests {
 
 	}
 
-	/**
+	*//**
 	 * Testing if Location conatins Players
-	 */
+	 *//*
 	@Test
 	public void test_19(){
 		GameOfCluedo game = new GameOfCluedo();
@@ -983,9 +983,9 @@ public class CluedoTests {
 
 	}
 	
-	/**
+	*//**
 	 * Check that 3 cards are random and taken from the Cards deck every Game
-	 */
+	 *//*
 	@Test
 	public void test_20(){
 	GameOfCluedo game = new GameOfCluedo(); //chances of getting the same 3 cards in two games is 5.7%
@@ -1014,3 +1014,4 @@ public class CluedoTests {
 
 
 }
+*/
