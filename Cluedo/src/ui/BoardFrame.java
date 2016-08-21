@@ -50,8 +50,6 @@ public class BoardFrame extends JFrame implements ActionListener, KeyListener {
 	public BoardFrame() {
 		super("Cluedo Board Game");
 
-		game = new GameOfCluedo();
-
 		this.setSize(1250, 1035);
 		this.setMinimumSize(new Dimension(1250, 1035)); //855 without rightPanel
 		setResizable(true);
@@ -76,18 +74,24 @@ public class BoardFrame extends JFrame implements ActionListener, KeyListener {
 		
 
 		bottomPanel = new JPanel();
-		bottomPanel.setLayout(new FlowLayout());
+		FlowLayout flow = new FlowLayout();
+		flow.setHgap(150);
+		bottomPanel.setLayout(flow);
 		bottomPanel.setPreferredSize(new Dimension(855, 100));
 		bottomPanel.setMinimumSize(new Dimension(855, 100));
+		
+		JLabel profile = new JLabel("<html>Player Info<br> <br>text to edit</html>");
 		
 		JButton suggest = new JButton("Suggest");
 		suggest.setActionCommand("suggest");
 		suggest.addActionListener(this);
+		suggest.setPreferredSize(new Dimension(50,50));
 
 		JButton accuse = new JButton("Accuse");
 		accuse.setActionCommand("accuse");
 		accuse.addActionListener(this);
-
+		accuse.setPreferredSize(new Dimension(50,50));
+		
 		JButton rollDice = new JButton("Roll Dice", new ImageIcon("src/images/dice.png"));
 		rollDice.setBackground(Color.LIGHT_GRAY);
 		ImageIcon dice = new ImageIcon("src/images/dice.png");
@@ -106,6 +110,7 @@ public class BoardFrame extends JFrame implements ActionListener, KeyListener {
 		bottomPanel.add(accuse, BorderLayout.CENTER);
 		bottomPanel.add(suggest, BorderLayout.EAST);
 		bottomPanel.add(rollDice, BorderLayout.WEST);
+		bottomPanel.add(profile, BorderLayout.PAGE_END);
 		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		
 		
@@ -155,9 +160,6 @@ public class BoardFrame extends JFrame implements ActionListener, KeyListener {
 					JOptionPane.PLAIN_MESSAGE, null, rpossibilities, "");
 			if(room.equals(null)){return;}
 			
-			Accusation accuse = new Accusation(null, null, null);//have a go at fixing these
-			
-			game.accuse(accuse, null);
 		}
 		if (cmd.equals("suggest")){
 			Object[] ppossibilities = { "Miss Scarlett", "Professor Plum", "Mrs. Peacock", "Reverend Green",
@@ -180,9 +182,6 @@ public class BoardFrame extends JFrame implements ActionListener, KeyListener {
 					JOptionPane.PLAIN_MESSAGE, null, rpossibilities, "");
 			if(room.equals(null)){return;}
 			
-			Suggestion suggest = new Suggestion(null, null, null);//cause I'm not 100% up to speed on how they're constructed
-			
-			game.suggest(suggest, null, null);
 		}
 
 	}
