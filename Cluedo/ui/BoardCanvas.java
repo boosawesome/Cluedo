@@ -18,6 +18,7 @@ public class BoardCanvas extends Canvas{
 	
 	private final int squareSize = 25;
 	public final int numSquare = 25;
+	Square selected = null;
 	Square[][] squares;
 	String[][] map = Board.map;
 	
@@ -47,6 +48,10 @@ public class BoardCanvas extends Canvas{
 		drawSquares(g);
 		drawRooms(g);
 		drawNames(g);
+		
+		if(selected != null){
+			drawSelected(g, selected);
+		}
 	}
 	
 	public void drawNames(Graphics g){
@@ -62,6 +67,16 @@ public class BoardCanvas extends Canvas{
 		g.drawString("Study", 19*25, 23*25);
 		g.drawString("Hall", 11*25, 21*25);
 		
+	}
+	
+	public void setSelected(Square s){
+		this.selected = s;
+	}
+	
+	public void drawSelected(Graphics g, Square s){
+		g.setColor(Color.MAGENTA);
+		Point p = s.point;
+		g.drawRect(p.x, p.y, squareSize, squareSize);
 	}
 	
 	public void drawSquares(Graphics g){
