@@ -30,7 +30,7 @@ public class BoardCanvas extends Canvas{
 	
 	public void paint(Graphics g){
 		int width = 24*35;
-		int height = 24*35;
+		int height = 25*35;
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, 5000, 5000);
@@ -39,8 +39,6 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(0, 0, width, height);
 		drawSquares(g);
 		drawRooms(g);
-		g.setColor(Color.BLACK);
-		g.drawRect(0, 0, width, height);
 		
 	}
 	
@@ -83,7 +81,7 @@ public class BoardCanvas extends Canvas{
 		}
 		//Dining Room
 		for(int x = 0; x <= 7; x++){
-			for(int y = 10; y <= 16; y++){
+			for(int y = 11; y <= 16; y++){
 				g.fillRect(x*35, y*35, squareSize, squareSize);
 			}
 		}
@@ -97,10 +95,16 @@ public class BoardCanvas extends Canvas{
 			}
 		}
 		//Library
-		for(int x = 18; x <= 23; x++){
-			for(int y = 14; y <= 18; y++){
+		for(int x = 17; x <= 23; x++){
+			for(int y = 15; y <= 17; y++){
 				g.fillRect(x*35, y*35, squareSize, squareSize);
 			}
+		}
+		for(int x = 18; x <= 23; x++){
+			g.fillRect(x*35, 14*35, squareSize, squareSize);
+		}
+		for(int x = 18; x <= 23; x++){
+			g.fillRect(x*35, 18*35, squareSize, squareSize);
 		}
 		//Lounge
 		for(int x = 0; x <= 6; x++){
@@ -120,14 +124,15 @@ public class BoardCanvas extends Canvas{
 				g.fillRect(x*35, y*35, squareSize, squareSize);
 			}
 		}
-		
+		//Cellar
 		g.setColor(Color.BLUE);
 		for(int x = 10; x <= 14; x++){
 			for(int y = 10; y <=16; y++){
-				g.fillRect(x*1*35, y*1*35, squareSize, squareSize);
+				g.fillRect(x*35, y*35, squareSize, squareSize);
 			}
 		}
 		
+		//draws walls
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 7*35, squareSize, squareSize);
 		g.fillRect(6*35, 1*35, squareSize, squareSize);
@@ -145,15 +150,17 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(8*35, 24*35, squareSize, squareSize);
 		g.fillRect(15*35, 24*35, squareSize, squareSize);
 		for(int x = 0; x <= 23; x++){
-			g.fillRect(x*1*35, 0, squareSize, squareSize);
+			g.fillRect(x*35, 0, squareSize, squareSize);
 		}
 		
+		//draws stairwells
 		g.setColor(Color.ORANGE);
 		g.fillRect(5*35, 1*35, squareSize, squareSize);
 		g.fillRect(0,  19*35, squareSize, squareSize);
 		g.fillRect(22*35, 5*35, squareSize, squareSize);
 		g.fillRect(23*35, 21*35, squareSize, squareSize);
 		
+		//draws starting spaces
 		g.setColor(Color.RED);
 		g.fillRect(9*35, 0, squareSize, squareSize);
 		g.fillRect(14*35, 0, squareSize, squareSize);
@@ -162,6 +169,26 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(23*35, 19*35, squareSize, squareSize);
 		g.fillRect(7*35, 24*35, squareSize, squareSize);
 		g.fillRect(23*35, 19*35, squareSize, squareSize);
+		
+		//draws doors
+		g.setColor(new Color(102, 51, 0));
+		g.fillRect(4*35, 6*35, squareSize, squareSize);
+		g.fillRect(6*35, 19*35, squareSize, squareSize); 
+		g.fillRect(19*35, 4*35, squareSize, squareSize); 
+		g.fillRect(17*35, 21*35, squareSize, squareSize); 
+		g.fillRect(7*35, 12*35, squareSize, squareSize); 
+		g.fillRect(6*35, 16*35, squareSize, squareSize); 
+		g.fillRect(19*35, 9*35, squareSize, squareSize); 
+		g.fillRect(22*35, 12*35, squareSize, squareSize); 
+		g.fillRect(20*35, 14*35, squareSize, squareSize); 
+		g.fillRect(17*35, 16*35, squareSize, squareSize); 
+		g.fillRect(8*35, 5*35, squareSize, squareSize); 
+		g.fillRect(9*35, 7*35, squareSize, squareSize); 
+		g.fillRect(14*35, 7*35, squareSize, squareSize); 
+		g.fillRect(15*35, 5*35, squareSize, squareSize); 
+		g.fillRect(11*35, 18*35, squareSize, squareSize); 
+		g.fillRect(12*35, 18*35, squareSize, squareSize); 
+		g.fillRect(14*35, 20*35, squareSize, squareSize); 
 	}
 	
 }
