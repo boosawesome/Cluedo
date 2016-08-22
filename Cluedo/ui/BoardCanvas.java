@@ -30,7 +30,7 @@ public class BoardCanvas extends Canvas{
 	
 	public void paint(Graphics g){
 		int width = 24*35;
-		int height = 25*35;
+		int height = 24*35;
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, 5000, 5000);

@@ -326,7 +326,7 @@ public class Main {
 				}
 				frame.repaint();
 			}
-
+			frame.repaint();
 			turn++;
 		}
 

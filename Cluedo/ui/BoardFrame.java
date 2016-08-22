@@ -15,6 +15,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -44,6 +46,7 @@ import items.Card;
 
 import java.awt.Component;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -162,9 +165,9 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		
 		for(int i = 0; i < comp.length; i++ ){
 			if(cards.get(i) == null){
-			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/clue.jpg")));
+			((JLabel) comp[i]).setIcon((resize("src/images/clue.jpg", (JLabel) comp[i])));
 			}else{
-			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/"+cards.get(i).getPicture()+".jpg")));
+			((JLabel) comp[i]).setIcon((resize("src/images/"+cards.get(i).getPicture()+".jpg", (JLabel) comp[i])));
 			}
 
 			bottomPanel.repaint();
@@ -198,6 +201,22 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 
 	public void setBoard(Board board) {
 		this.board = board;
+	}
+	
+	public ImageIcon resize(String path, JLabel label){
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File(path));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+		Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(),
+		        Image.SCALE_SMOOTH);
+		
+		return new ImageIcon(dimg);
+		
+		
 	}
 
 
