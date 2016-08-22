@@ -57,7 +57,7 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 
 	private JPanel bottomPanel;
 	private JPanel rightPanel;
-	private BoardCanvas boardCanvas;
+	public BoardCanvas boardCanvas;
 	private GameOfCluedo game;
 	private Square selected;
 	
@@ -166,14 +166,18 @@ public void updateCards(Player player){
 		ArrayList<Card> cards = player.getHand();
 		
 		Component[] comp = rightPanel.getComponents();
-		
+		int count = 0;
 		for(int i = 0; i < comp.length; i++ ){
-			if(cards.get(i) == null){
+			Card c = cards.get(count%cards.size());
+			if(count >= cards.size()){
+				((JLabel) comp[i]).setIcon((resize("src/images/clue.jpg", (JLabel) comp[i])));
+			}
+			else if(c == null){
 			((JLabel) comp[i]).setIcon((resize("src/images/clue.jpg", (JLabel) comp[i])));
 			}else{
 			((JLabel) comp[i]).setIcon((resize("src/images/"+cards.get(i).getPicture()+".jpg", (JLabel) comp[i])));
 			}
-
+			count++;
 			bottomPanel.repaint();
 			
 		}
@@ -225,7 +229,7 @@ public void updateCards(Player player){
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					g.drawImage(img, x, y, 35, 35, null);
+					g.drawImage(img, x * 25, y*25, 23, 23, null);
 				}
 				}
 		}

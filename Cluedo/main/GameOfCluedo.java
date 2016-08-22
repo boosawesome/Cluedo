@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import game.*;
 import items.Card;
 import items.Character.CharacterToken;
@@ -20,6 +22,7 @@ import items.Weapon.WeaponToken;
 import items.WeaponObject;
 import moves.Accusation;
 import moves.Suggestion;
+import ui.BoardFrame;
 
 /**
  * Represents a game of cluedo. This contains an internal representation of
@@ -335,12 +338,12 @@ public class GameOfCluedo {
 	 * @param room
 	 * @param p
 	 */
-	public void useStairWell(Room room, Player p){
+	public void useStairWell(Room room, Player p, BoardFrame frame){
 		if(p.getRoom() == null){
-			System.out.println("Error! Player is not inside a Room");
+			JOptionPane.showMessageDialog(frame, "Cannot Use StairWell when Player "+p.num+" is not in a Room!");
 			return;
 		}else if(!p.getRoom().hasStairWell()){
-			System.out.println("Error! Room "+ room.getName()+" does not have a Stairwell");
+			JOptionPane.showMessageDialog(frame, room.picture +" does not have StairWell!");
 			return;
 		}
 		
@@ -350,7 +353,7 @@ public class GameOfCluedo {
 			getLocation(room).removePlayer(p);
 			getLocation(opposite).addPlayer(p);
 			p.setRoom(opposite);
-			System.out.println(p.getName()+ " used the Stairwell to get from "+ room.getName() +" to "+ opposite.getName()+"\n\n\n\n\n");
+			JOptionPane.showMessageDialog(frame, p.getName()+ " used the Stairwell to get from "+ room.getName() +" to "+ opposite.getName());
 		}
 	}
 	

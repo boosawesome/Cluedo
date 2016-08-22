@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import game.Board;
+import items.Piece;
 
 public class BoardCanvas extends Canvas{
 	
@@ -20,14 +21,24 @@ public class BoardCanvas extends Canvas{
 		
 		for(int x = 0; x < 24; x++){
 			for(int y = 0; y < 25; y++){
-				if(map[x][y].equals("x")){
+			
 					squares[x][y] = new Square(new Point(x,y));
-				}
+				
+				
 			}
 		}
 		
 	}
-	
+	public void drawPlayers(Graphics g){
+		for(int x = 0; x < 24; x++){
+			for(int y = 0; y < 25; y++){
+				if(squares[x][y].hasPiece()){
+					Piece p = squares[x][y].getPiece();
+					g.drawImage(p.picture, 25, 25, squareSize, squareSize, null);
+				}
+			}
+		} 
+	}
 	public void paint(Graphics g){
 		int width = 24*25;
 		int height = 25*25;
@@ -39,6 +50,7 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(0, 0, width, height);
 		drawSquares(g);
 		drawRooms(g);
+		drawPlayers(g);
 		
 	}
 	
@@ -161,7 +173,7 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(23*25, 21*25, squareSize, squareSize);
 		
 		//draws starting spaces
-		g.setColor(Color.RED);
+		g.setColor(Color.GRAY);
 		g.fillRect(9*25, 0, squareSize, squareSize);
 		g.fillRect(14*25, 0, squareSize, squareSize);
 		g.fillRect(23*25, 6*25, squareSize, squareSize);

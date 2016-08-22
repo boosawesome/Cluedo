@@ -6,7 +6,7 @@ import items.Piece;
 
 public class Square {
 
-	private Piece piece = null;
+	private Piece piece;
 	public boolean occupied = false;
 	public Point point;
 	
@@ -22,12 +22,14 @@ public class Square {
 	
 	public void setPiece(Piece p){
 		this.piece = p;
-		occupied = hasPiece();
+		occupied = hasPiece(); 
 	}
 	
 	public Piece getPiece(){
 		return this.piece;
 	}
+	
+	
 	
 	
 	

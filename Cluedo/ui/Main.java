@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -104,7 +107,7 @@ public class Main {
 
 			//initialize player 
 			Point point = game.getBoard().tokenToPos.get(s);
-			Piece piece = new Piece(s);
+			Piece piece = game.getBoard().getPiece(s);
 			Player p = new Player(name, piece, point);
 			p.num = i;
 			players.add(p);
@@ -117,6 +120,12 @@ public class Main {
 
 	public static void movePlayer(GameOfCluedo game, BoardFrame frame, Player player, int roll){
 		//game.movePlayer(roll, d, p, players);
+		//user selects a square
+		//check if square is within roll range
+		//if it is, checks if x or y is greater, if x is greater move x spaces first then y else y spaces first
+
+
+
 	}
 
 	public static void setupButtons(BoardFrame frame){
@@ -153,6 +162,7 @@ public class Main {
 			start = false;
 			int roll = dice.roll();
 			JOptionPane.showMessageDialog(frame, frame.getGame().currentPlayer.getName()+" rolls a "+roll);
+
 		}else if(action.equals("endTurn")){
 			endTurn = true;
 		}
@@ -244,6 +254,24 @@ public class Main {
 		}
 	}
 
+	public static void initializeTokens(BoardFrame frame, Set<Piece> pieces){
+		GameOfCluedo game = frame.getGame();
+		BoardCanvas canvas = frame.boardCanvas;
+
+		for(Piece p : pieces){
+			Point point = game.getBoard().tokenToPos.get(p.token);
+			int x = (int) point.getX();
+			int y = (int) point.getY();
+
+			canvas.squares[x][y] = new Square(new Point(x,y));
+			canvas.squares[x][y].setPiece(p);
+		}
+
+
+		frame.drawTokens(frame.boardCanvas.getGraphics());
+		frame.repaint();
+	}
+
 
 	public static void main(String[] args){
 
@@ -307,6 +335,15 @@ public class Main {
 		dice = new Dice();
 
 		setupButtons(frame);
+		Set<Piece> pieces = new HashSet<Piece>();
+
+		pieces.addAll(game.getBoard().pieces);
+
+		for(Player play : players){
+			pieces.add(play.getToken());
+		}
+
+		initializeTokens(frame, pieces);
 
 		while(1 == 1){
 

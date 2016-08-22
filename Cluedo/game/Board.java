@@ -12,6 +12,7 @@ import items.Character;
 import items.Room;
 import items.Weapon;
 import items.Character.CharacterToken;
+import items.Piece;
 import items.Room.RoomToken;
 import items.Weapon.WeaponToken;
 
@@ -31,9 +32,21 @@ public class Board {
 	private List<Room> rooms; 
 	public Map<Point, String> entrances; //contains the Points that allow access into Rooms 
 	
+	public ArrayList<Piece> pieces;
+	
 	//although already in GameOfCluedo, used here due to size of cards in Game reduced by 3 because of the Envelope Class
 	List<Character> characters; 
 	List<Weapon> weapons;
+	
+	public Map<String, ArrayList<Point>> lounge;
+	public Map<String, ArrayList<Point>> kitchen;
+	public Map<String, ArrayList<Point>> ballroom;
+	public Map<String, ArrayList<Point>> conservatory;
+	public Map<String, ArrayList<Point>> billiardroom;
+	public Map<String, ArrayList<Point>> library;
+	public Map<String, ArrayList<Point>> study;
+	public Map<String, ArrayList<Point>> hall;
+	public Map<String, ArrayList<Point>> diningroom;
 	
 	
 	/**
@@ -121,11 +134,18 @@ public class Board {
 		startingPositions.add(new Point(7, 24));
 		startingPositions.add(new Point(0, 17));
 		startingPositions.add(new Point(9,0));
-		startingPositions.add(new Point(15,0));
-		startingPositions.add(new Point(24,6));
-		startingPositions.add(new Point(24,19));
+		startingPositions.add(new Point(14,0));
+		startingPositions.add(new Point(23,6));
+		startingPositions.add(new Point(23,19));
 
-
+		pieces = new ArrayList<Piece>();
+		pieces.add(new Piece("Miss Scarlett"));
+		pieces.add(new Piece("Colonel Mustard"));
+		pieces.add(new Piece("Mrs White"));
+		pieces.add(new Piece("The Reverend Green"));
+		pieces.add(new Piece("Mrs Peacock"));
+		pieces.add(new Piece("Professor Plum"));
+		
 
 		rooms.add(new Room(RoomToken.DINING_ROOM));
 		rooms.add(new Room(RoomToken.HALL));
@@ -150,21 +170,24 @@ public class Board {
 
 		entrances.put(new Point(4, 7), "KITCHEN");
 		entrances.put(new Point(6, 18), "LOUNGE");
-		entrances.put(new Point(19, 5), "CONSERVATORY");
-		entrances.put(new Point(18, 20), "STUDY");
+		entrances.put(new Point(18, 5), "CONSERVATORY");
+		entrances.put(new Point(17, 20), "STUDY");
 		entrances.put(new Point(8, 12), "DINING_ROOM");
 		entrances.put(new Point(6, 16), "DINING_ROOM");
-		entrances.put(new Point(18, 8), "BILLIARD_ROOM");
-		entrances.put(new Point(23, 12), "BILLIARD_ROOM");
-		entrances.put(new Point(21, 12), "LIBRARY");
-		entrances.put(new Point(17, 15), "LIBRARY");
+		entrances.put(new Point(17,8), "BILLIARD_ROOM");
+		entrances.put(new Point(22, 12), "BILLIARD_ROOM");
+		entrances.put(new Point(20, 12), "LIBRARY");
+		entrances.put(new Point(16, 15), "LIBRARY");
 		entrances.put(new Point(7, 5), "BALLROOM");
 		entrances.put(new Point(9, 8), "BALLROOM");
 		entrances.put(new Point(15, 8), "BALLROOM");
-		entrances.put(new Point(17, 5), "BALLROOM");
+		entrances.put(new Point(16, 5), "BALLROOM");
 		entrances.put(new Point(11, 17), "HALL");
 		entrances.put(new Point(12, 17), "HALL");
-		entrances.put(new Point(16, 20), "HALL");
+		entrances.put(new Point(15, 20), "HALL");
+		
+	
+		
 	}
 	
 	/**
@@ -261,6 +284,18 @@ public class Board {
 		return board;
 
 	}
+	
+	public Piece getPiece(String p){
+		for(Piece piece : pieces){
+			if(piece.token.equals(p)){
+				return piece;
+			}
+			
+		}
+		return null;
+	}
+	
+	
 	
 	/**
 	 * Print out Positions of the Players

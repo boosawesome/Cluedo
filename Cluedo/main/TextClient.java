@@ -338,7 +338,7 @@ public class TextClient {
 	 * @param game
 	 */
 	private static void useStairWell(Room r, Player p, GameOfCluedo game){
-		game.useStairWell(r, p);
+		game.useStairWell(r, p, null);
 	}
 	
 	/**
