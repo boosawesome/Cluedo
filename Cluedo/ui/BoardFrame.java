@@ -5,6 +5,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -15,6 +16,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -44,6 +47,7 @@ import items.Card;
 
 import java.awt.Component;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -58,6 +62,7 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 	private Square selected;
 	
 	public ArrayList<JButton> buttons;
+	public JLabel profile;
 
 	private Board board;
 	
@@ -96,7 +101,7 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		bottomPanel.setPreferredSize(new Dimension(855, 100));
 		bottomPanel.setMinimumSize(new Dimension(855, 100));
 		
-		JLabel profile = new JLabel("<html>Player Info<br> <br>text to edit</html>");
+		profile = new JLabel("<html>Player Info<br> <br>text to edit</html>");
 		
 		JButton suggest = new JButton("Suggest");
 		suggest.setActionCommand("suggest");
@@ -156,7 +161,7 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		this.setVisible(true);
 	}
 
-	public void updateCards(Player player){
+public void updateCards(Player player){
 		
 		ArrayList<Card> cards = player.getHand();
 		
@@ -164,17 +169,68 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		
 		for(int i = 0; i < comp.length; i++ ){
 			if(cards.get(i) == null){
-			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/clue.jpg")));
+			((JLabel) comp[i]).setIcon((resize("src/images/clue.jpg", (JLabel) comp[i])));
 			}else{
-			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/"+cards.get(i).getPicture()+".jpg")));
+			((JLabel) comp[i]).setIcon((resize("src/images/"+cards.get(i).getPicture()+".jpg", (JLabel) comp[i])));
 			}
 
 			bottomPanel.repaint();
 			
 		}
 		
+
+			String info = "<html>Player"
+			+player.num+ " Info<br>"
+					+ "Name: " + player.getName()
+					+ "<br>Token: " + player.getToken().token+" ("+ player.getToken().colour+")<br>"
+					+ "Location: " + player.getLocation().getX() +"," +player.getLocation().getY()+"</html>";
+		
+		
+		
+		profile.setText(info);
+		
+		int x = (int)player.getLocation().getX();
+		int y = (int) player.getLocation().getY();
+		
 		
 	}
+	
+	
+	
+	public ImageIcon resize(String path, JLabel label){
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File(path));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+		Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(),
+		        Image.SCALE_SMOOTH);
+		
+		return new ImageIcon(dimg);
+		
+		
+	}
+	
+	public void drawTokens(Graphics g){
+		for(int x = 0; x < 24; x++){
+			for(int y = 0; y < 25; y++){
+				if(boardCanvas.squares[x][y].hasPiece()){
+					String colour = boardCanvas.squares[x][y].getPiece().colour;
+					Image img = null;
+					try {
+						img = ImageIO.read(new File("src/images/"+colour+".png"));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					g.drawImage(img, x, y, 35, 35, null);
+				}
+				}
+		}
+		}
+
 	
 	
 	public static void main(String[] args) {
