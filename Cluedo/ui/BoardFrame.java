@@ -15,8 +15,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,7 +44,6 @@ import items.Card;
 
 import java.awt.Component;
 
-import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -58,8 +55,8 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 	private JPanel rightPanel;
 	private BoardCanvas boardCanvas;
 	private GameOfCluedo game;
+	private Square selected;
 	
-	public JLabel profile;
 	public ArrayList<JButton> buttons;
 
 	private Board board;
@@ -70,9 +67,9 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		game = new GameOfCluedo();
 		board = game.getBoard();
 		buttons  = new ArrayList<JButton>();
-		this.setSize(1250, 1035);
-		this.setMinimumSize(new Dimension(1250, 1035)); //855 without rightPanel
-		setResizable(true);
+		this.setSize(1008, 778);
+		this.setMinimumSize(new Dimension(600, 500)); //855 without rightPanel
+		setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -99,20 +96,7 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		bottomPanel.setPreferredSize(new Dimension(855, 100));
 		bottomPanel.setMinimumSize(new Dimension(855, 100));
 		
-		String info = "<html>Player Info<br> <br> </html>";
-		
-		if(this.game.currentPlayer != null){
-			info = "<html>Player"
-			+this.game.currentPlayer.num+ " Info<br> <br>"
-					+ "Name: " + this.game.currentPlayer.getName()
-					+ "Token: " + this.game.currentPlayer.getToken().token+" ("+ this.game.currentPlayer.getToken().colour+")"
-					+ "Location: " + this.game.currentPlayer.getLocation().toString() +"</html>";
-		}
-		
-		
-		profile = new JLabel(info);
-		
-		
+		JLabel profile = new JLabel("<html>Player Info<br> <br>text to edit</html>");
 		
 		JButton suggest = new JButton("Suggest");
 		suggest.setActionCommand("suggest");
@@ -148,15 +132,11 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		suggest.setPreferredSize(new Dimension(100,30));
 		accuse.setPreferredSize(new Dimension(100,30));
 
-	
 		bottomPanel.add(suggest);
 		bottomPanel.add(accuse);
 		bottomPanel.add(rollDice);
 		bottomPanel.add(endTurn);
-		bottomPanel.add(profile, BorderLayout.PAGE_START);
-		
-		bottomPanel.setBorder(BorderFactory.createLoweredBevelBorder());
-		
+		bottomPanel.add(profile);
 		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		
 		
@@ -184,25 +164,15 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		
 		for(int i = 0; i < comp.length; i++ ){
 			if(cards.get(i) == null){
-			((JLabel) comp[i]).setIcon((resize("src/images/clue.jpg", (JLabel) comp[i])));
+			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/clue.jpg")));
 			}else{
-			((JLabel) comp[i]).setIcon((resize("src/images/"+cards.get(i).getPicture()+".jpg", (JLabel) comp[i])));
+			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/"+cards.get(i).getPicture()+".jpg")));
 			}
 
 			bottomPanel.repaint();
 			
 		}
 		
-
-			String info = "<html>Player"
-			+player.num+ " Info<br>"
-					+ "Name: " + player.getName()
-					+ "<br>Token: " + player.getToken().token+" ("+ player.getToken().colour+")<br>"
-					+ "Location: " + player.getLocation().getX() +"," +player.getLocation().getY()+"</html>";
-		
-		
-		
-		profile.setText(info);
 		
 	}
 	
@@ -231,22 +201,6 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 	public void setBoard(Board board) {
 		this.board = board;
 	}
-	
-	public ImageIcon resize(String path, JLabel label){
-		BufferedImage img = null;
-		try {
-		    img = ImageIO.read(new File(path));
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		
-		Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(),
-		        Image.SCALE_SMOOTH);
-		
-		return new ImageIcon(dimg);
-		
-		
-	}
 
 
 	public void actionPerformed(ActionEvent e) {
@@ -271,7 +225,7 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		y = y/35;
 		
 		if (boardCanvas.squares[x][y] != null){
-			
+			selected = boardCanvas.squares[x][y];
 		}
 		
 	}
