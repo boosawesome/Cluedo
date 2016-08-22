@@ -26,6 +26,7 @@ import items.Weapon.WeaponToken;
 public class Board {
 	
 	public static String[][] map; //Points in the Board 24x25
+	public Map<String, Point> tokenToPos;
 	List<Point> startingPositions; 
 	private List<Room> rooms; 
 	public Map<Point, String> entrances; //contains the Points that allow access into Rooms 
@@ -135,6 +136,17 @@ public class Board {
 		rooms.add(new Room(RoomToken.STUDY, RoomToken.KITCHEN));
 		rooms.add(new Room(RoomToken.CONSERVATORY, RoomToken.LOUNGE));
 		rooms.add(new Room(RoomToken.LOUNGE, RoomToken.CONSERVATORY));
+		
+
+
+		tokenToPos = new HashMap<String, Point>();
+		tokenToPos.put("Miss Scarlett", new Point(7,24));
+		tokenToPos.put("Colonel Mustard", new Point(0,17));
+		tokenToPos.put("Mrs White", new Point(9,0));
+		tokenToPos.put("The Reverend Green", new Point(15,0));
+		tokenToPos.put("Mrs Peacock", new Point(24,6));
+		tokenToPos.put("Professor Plum", new Point(24,19));
+
 
 		entrances.put(new Point(4, 7), "KITCHEN");
 		entrances.put(new Point(6, 18), "LOUNGE");
@@ -152,7 +164,6 @@ public class Board {
 		entrances.put(new Point(17, 5), "BALLROOM");
 		entrances.put(new Point(11, 17), "HALL");
 		entrances.put(new Point(12, 17), "HALL");
-		entrances.put(new Point(13, 17), "HALL");
 		entrances.put(new Point(16, 20), "HALL");
 	}
 	
