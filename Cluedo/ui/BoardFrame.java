@@ -59,6 +59,7 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 	private BoardCanvas boardCanvas;
 	private GameOfCluedo game;
 	
+	public JLabel profile;
 	public ArrayList<JButton> buttons;
 
 	private Board board;
@@ -98,7 +99,20 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		bottomPanel.setPreferredSize(new Dimension(855, 100));
 		bottomPanel.setMinimumSize(new Dimension(855, 100));
 		
-		JLabel profile = new JLabel("<html>Player Info<br> <br>text to edit</html>");
+		String info = "<html>Player Info<br> <br> </html>";
+		
+		if(this.game.currentPlayer != null){
+			info = "<html>Player"
+			+this.game.currentPlayer.num+ " Info<br> <br>"
+					+ "Name: " + this.game.currentPlayer.getName()
+					+ "Token: " + this.game.currentPlayer.getToken().token+" ("+ this.game.currentPlayer.getToken().colour+")"
+					+ "Location: " + this.game.currentPlayer.getLocation().toString() +"</html>";
+		}
+		
+		
+		profile = new JLabel(info);
+		
+		
 		
 		JButton suggest = new JButton("Suggest");
 		suggest.setActionCommand("suggest");
@@ -134,10 +148,15 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		suggest.setPreferredSize(new Dimension(100,30));
 		accuse.setPreferredSize(new Dimension(100,30));
 
+	
 		bottomPanel.add(suggest);
 		bottomPanel.add(accuse);
 		bottomPanel.add(rollDice);
 		bottomPanel.add(endTurn);
+		bottomPanel.add(profile, BorderLayout.PAGE_START);
+		
+		bottomPanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		
 		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		
 		
@@ -174,6 +193,16 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 			
 		}
 		
+
+			String info = "<html>Player"
+			+player.num+ " Info<br>"
+					+ "Name: " + player.getName()
+					+ "<br>Token: " + player.getToken().token+" ("+ player.getToken().colour+")<br>"
+					+ "Location: " + player.getLocation().getX() +"," +player.getLocation().getY()+"</html>";
+		
+		
+		
+		profile.setText(info);
 		
 	}
 	
