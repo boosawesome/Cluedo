@@ -7,6 +7,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -118,13 +120,24 @@ public class Main {
 
 	}
 
-	public static void movePlayer(GameOfCluedo game, BoardFrame frame, Player player, int roll){
+	public static void movePlayer(BoardFrame frame, Player player, int roll){
 		//game.movePlayer(roll, d, p, players);
 		//user selects a square
 		//check if square is within roll range
 		//if it is, checks if x or y is greater, if x is greater move x spaces first then y else y spaces first
-
-
+		
+		
+		while(roll > 0){
+			double px = player.getLocation().getX();
+			double py = player.getLocation().getY();
+			
+			
+			
+			
+			roll--;
+			frame.repaint();
+		}
+		
 
 	}
 
@@ -146,6 +159,8 @@ public class Main {
 		}
 
 	}
+	
+	
 
 	private static void playerOptions(String action,BoardFrame frame) {
 
@@ -159,9 +174,14 @@ public class Main {
 		}else if(action.equals("suggest")){
 			makeSuggestion(frame);
 		}else if(action.equals("rollDice")){
+			if(!start){
+				JOptionPane.showMessageDialog(frame, "Cannot roll the Dice Again!!!");
+				return;
+			}
 			start = false;
 			int roll = dice.roll();
 			JOptionPane.showMessageDialog(frame, frame.getGame().currentPlayer.getName()+" rolls a "+roll);
+			movePlayer(frame, frame.getGame().currentPlayer, roll);
 
 		}else if(action.equals("endTurn")){
 			endTurn = true;
@@ -358,7 +378,7 @@ public class Main {
 
 
 
-
+					frame.drawTokens(frame.boardCanvas.getGraphics());
 
 				}
 				frame.repaint();
