@@ -175,6 +175,12 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
+		x = x/35;
+		y = y/35;
+		
+		if (boardCanvas.squares[x][y] != null){
+			
+		}
 	}
 
 	public void mouseEntered(MouseEvent e) {	
