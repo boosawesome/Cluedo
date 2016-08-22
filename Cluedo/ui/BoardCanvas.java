@@ -76,7 +76,7 @@ public class BoardCanvas extends Canvas{
 	public void drawSelected(Graphics g, Square s){
 		g.setColor(Color.MAGENTA);
 		Point p = s.point;
-		g.drawRect(p.x, p.y, squareSize, squareSize);
+		g.drawRect(p.x*25, p.y*25, squareSize, squareSize);
 	}
 	
 	public void drawSquares(Graphics g){
@@ -126,7 +126,7 @@ public class BoardCanvas extends Canvas{
 			g.fillRect(x*25, 10*25, squareSize, squareSize);
 		}
 		//Billiard Room
-		for(int x = 19; x <= 23; x++){
+		for(int x = 18; x <= 23; x++){
 			for(int y = 8; y <= 12; y++){
 				g.fillRect(x*25, y*25, squareSize, squareSize);
 			}
@@ -167,7 +167,7 @@ public class BoardCanvas extends Canvas{
 			img = ImageIO.read(new File("src/images/cluedo.png"));
 		} catch (IOException e) {
 		}
-		g.drawImage(img, 10*25, 10*25, 4*25, 6*25, null);
+		g.drawImage(img, 10*25, 10*25, 5*25, 7*25, null);
 		
 		//draws walls
 		g.setColor(Color.GREEN);
@@ -212,7 +212,7 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(7*25, 12*25, squareSize, squareSize); 
 		g.fillRect(6*25, 16*25, squareSize, squareSize); 
 		
-		g.fillRect(19*25, 9*25, squareSize, squareSize); 
+		g.fillRect(18*25, 9*25, squareSize, squareSize); 
 		g.fillRect(22*25, 12*25, squareSize, squareSize);
 		
 		g.fillRect(20*25, 14*25, squareSize, squareSize); 
