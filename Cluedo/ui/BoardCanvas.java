@@ -164,7 +164,7 @@ public class BoardCanvas extends Canvas{
 		//Cellar
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("src/images/Capture.png"));
+			img = ImageIO.read(new File("src/images/cluedo.png"));
 		} catch (IOException e) {
 		}
 		g.drawImage(img, 10*25, 10*25, 4*25, 6*25, null);
