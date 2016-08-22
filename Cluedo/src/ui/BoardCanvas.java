@@ -3,28 +3,44 @@ package ui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+
+import game.Board;
 
 public class BoardCanvas extends Canvas{
 	
 	private final int squareSize = 35;
 	public final int numSquare = 25;
 	Square[][] squares;
+	String[][] map = Board.map;
 	
 	public BoardCanvas(){
 		this.setBackground(Color.BLACK);
 		squares = new Square[numSquare][numSquare];
 		
+		for(int x = 0; x < 24; x++){
+			for(int y = 0; y < 25; y++){
+				if(map[x][y].equals("x")){
+					squares[x][y] = new Square(new Point(x,y));
+				}
+			}
+		}
+		
 	}
-	
 	
 	public void paint(Graphics g){
 		int width = 24*35;
 		int height = 25*35;
 		
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 5000, 5000);
+		
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, width, height);
 		drawSquares(g);
 		drawRooms(g);
+		g.setColor(Color.BLACK);
+		g.drawRect(0, 0, width, height);
 		
 	}
 	
@@ -131,7 +147,7 @@ public class BoardCanvas extends Canvas{
 		for(int x = 0; x <= 23; x++){
 			g.fillRect(x*1*35, 0, squareSize, squareSize);
 		}
-		 
+		
 		g.setColor(Color.ORANGE);
 		g.fillRect(5*35, 1*35, squareSize, squareSize);
 		g.fillRect(0,  19*35, squareSize, squareSize);
