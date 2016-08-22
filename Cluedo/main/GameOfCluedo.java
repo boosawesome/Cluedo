@@ -94,7 +94,7 @@ public class GameOfCluedo {
 
 
 		rooms.add(new Room(RoomToken.BALLROOM));
-		rooms.add(new Room(RoomToken.BILLARD_ROOM));
+		rooms.add(new Room(RoomToken.BILLIARD_ROOM));
 		rooms.add(new Room(RoomToken.CONSERVATORY, RoomToken.LOUNGE));
 		rooms.add(new Room(RoomToken.DINING_ROOM));
 		rooms.add(new Room(RoomToken.HALL));

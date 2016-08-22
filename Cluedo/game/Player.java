@@ -37,7 +37,7 @@ public class Player {
 		this.active = true;
 		this.character = character;
 		this.location = location;
-		this.hand = new ArrayList<Card>();
+		this.hand = new ArrayList<Card>(); 
 	}
 	
 	/**

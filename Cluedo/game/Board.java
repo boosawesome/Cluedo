@@ -130,7 +130,7 @@ public class Board {
 		rooms.add(new Room(RoomToken.DINING_ROOM));
 		rooms.add(new Room(RoomToken.HALL));
 		rooms.add(new Room(RoomToken.BALLROOM));
-		rooms.add(new Room(RoomToken.BILLARD_ROOM));
+		rooms.add(new Room(RoomToken.BILLIARD_ROOM));
 		rooms.add(new Room(RoomToken.LIBRARY));
 		rooms.add(new Room(RoomToken.KITCHEN, RoomToken.STUDY));
 		rooms.add(new Room(RoomToken.STUDY, RoomToken.KITCHEN));

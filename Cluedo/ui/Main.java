@@ -312,10 +312,11 @@ public class Main {
 
 
 			for(int n = 0; n < players.size(); n++){
+				start = true;
 				endTurn = false;
 				while(!endTurn){
-					game.currentPlayer = players.get(n);
-					frame.updateCards();
+					game.currentPlayer = players.get(n);					
+					frame.updateCards(game.currentPlayer);
 					frame.repaint();
 
 
@@ -323,6 +324,7 @@ public class Main {
 
 
 				}
+				frame.repaint();
 			}
 
 			turn++;

@@ -44,6 +44,7 @@ import items.Card;
 
 import java.awt.Component;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -153,20 +154,20 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 		this.setVisible(true);
 	}
 
-	public void updateCards(){
-		Player player = game.currentPlayer;
+	public void updateCards(Player player){
+		
 		ArrayList<Card> cards = player.getHand();
 		
 		Component[] comp = rightPanel.getComponents();
 		
 		for(int i = 0; i < comp.length; i++ ){
 			if(cards.get(i) == null){
-			comp[i]= new JLabel(new ImageIcon("src/images/clue.jpg"));
+			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/clue.jpg")));
 			}else{
-			comp[i] = new JLabel(new ImageIcon("src/images/"+cards.get(i).getName()+".jpg"));
+			((JLabel) comp[i]).setIcon((new ImageIcon("src/images/"+cards.get(i).getPicture()+".jpg")));
 			}
 
-			this.repaint();
+			bottomPanel.repaint();
 			
 		}
 		
@@ -177,8 +178,10 @@ public class BoardFrame extends JFrame implements ActionListener, MouseListener 
 	public static void main(String[] args) {
 		BoardFrame frame = new BoardFrame();
 		Player p = new Player("andre", null, null );
-		p.addCard(frame.getBoard().getCharacter("DAGGER"));
-		frame.updateCards();
+		p.addCard(frame.getBoard().getCharacter("MISS_SCARLETT"));
+		p.addCard(frame.getBoard().getWeapon("DAGGER"));
+		p.addCard(frame.getBoard().getRoom("LOUNGE"));
+		frame.updateCards(p);
 	}
 	
 	public GameOfCluedo getGame() {
