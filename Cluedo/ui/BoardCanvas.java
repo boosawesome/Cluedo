@@ -162,16 +162,9 @@ public class BoardCanvas extends Canvas{
 			}
 		}
 		//Cellar
-	/*  g.setColor(Color.BLUE);
-		for(int x = 10; x <= 14; x++){
-			for(int y = 10; y <=16; y++){
-				g.fillRect(x*25, y*25, squareSize, squareSize);
-			}
-	    } 
-	*/
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("bin/ui/images/green.png"));
+			img = ImageIO.read(new File("src/images/Capture.png"));
 		} catch (IOException e) {
 		}
 		g.drawImage(img, 10*25, 10*25, 4*25, 6*25, null);
@@ -204,15 +197,7 @@ public class BoardCanvas extends Canvas{
 		g.fillRect(22*25, 5*25, squareSize, squareSize);
 		g.fillRect(23*25, 21*25, squareSize, squareSize);
 		
-		//draws starting spaces
-		g.setColor(Color.RED);
-		g.fillRect(9*25, 0, squareSize, squareSize);
-		g.fillRect(14*25, 0, squareSize, squareSize);
-		g.fillRect(23*25, 6*25, squareSize, squareSize);
-		g.fillRect(0, 17*25, squareSize, squareSize);
-		g.fillRect(23*25, 19*25, squareSize, squareSize);
-		g.fillRect(7*25, 24*25, squareSize, squareSize);
-		g.fillRect(23*25, 19*25, squareSize, squareSize);
+		
 		
 		//draws doors
 		g.setColor(new Color(102, 51, 0));
